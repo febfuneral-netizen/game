@@ -1,0 +1,10 @@
+node_modules/
+dist/
+*.map
+.env
+.project.private.config.json
+project.private.config.json
+server-upload.tar.gz
+*.log
+.DS_Store
+Thumbs.db

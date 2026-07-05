@@ -1,0 +1,179 @@
+// 学科卡片 — 宽卡片 + 毛玻璃状态 + 浮动图标 + 点击反馈
+.subject-card {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  min-height: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+  cursor: pointer;
+  transform: scale(1);
+
+  &--pressed {
+    transform: scale(0.97);
+  }
+
+  &--locked {
+    opacity: 0.62;
+    pointer-events: none;
+    filter: grayscale(0.25);
+  }
+
+  // 光泽装饰 1
+  &__shine {
+    position: absolute;
+    top: -28px;
+    left: -28px;
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.22);
+    filter: blur(14px);
+    pointer-events: none;
+  }
+
+  // 光泽装饰 2
+  &__shine2 {
+    position: absolute;
+    bottom: -36px;
+    right: 36px;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    filter: blur(22px);
+    pointer-events: none;
+  }
+
+  // 内容区
+  &__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 16px 20px 20px;
+  }
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  // 状态圆圈（毛玻璃效果）
+  &__status-circle {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255,255,255,0.3);
+    flex-shrink: 0;
+  }
+  &__status-icon {
+    font-size: 12px;
+    line-height: 1;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  // 信息区
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  &__level-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  &__level {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 0.5px;
+  }
+  &__dot {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+  }
+  &__status-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.65);
+    font-weight: 500;
+  }
+
+  &__name {
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  }
+  &__desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  // 右侧图标
+  &__icon-wrap {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__icon-bg {
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+    animation: cardIconFloat 2.6s ease-in-out infinite;
+  }
+  &__icon-emoji {
+    font-size: 38px;
+    line-height: 1;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+  }
+
+  // 锁定覆盖层
+  &__locked-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.12);
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+  &__locked-icon {
+    font-size: 36px;
+    opacity: 0.9;
+  }
+}
+
+@keyframes cardIconFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(2deg); }
+}
+

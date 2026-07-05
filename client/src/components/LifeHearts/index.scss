@@ -1,0 +1,30 @@
+@use 'sass:math';
+
+.life-hearts {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  &__icon {
+    font-size: 18px;
+    transition: all 0.3s ease;
+    display: inline-block;
+
+    &--alive {
+      animation: heartPulse 0.4s ease;
+      filter: drop-shadow(0 0 4px rgba(239,68,68,0.6));
+    }
+
+    &--dead {
+      opacity: 0.4;
+      transform: scale(0.85);
+      filter: grayscale(0.8);
+    }
+  }
+}
+
+@keyframes heartPulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}

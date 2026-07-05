@@ -1,0 +1,50 @@
+// OptionButton 样式已改为 inline style 驱动
+// 保留基础 class 以便兼容
+.option-btn {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-radius: 16px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+
+  &--default {
+    &:active {
+      transform: scale(0.97);
+    }
+  }
+  &--selected {
+    animation: selectedPulse 0.4s ease;
+  }
+  &--correct {
+    animation: correctGlow 0.5s ease;
+  }
+  &--wrong {
+    animation: shake 0.4s ease;
+  }
+  &--disabled {
+    pointer-events: none;
+  }
+}
+
+@keyframes selectedPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+@keyframes correctGlow {
+  0% { opacity: 0.8; }
+  100% { opacity: 1; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10% { transform: translateX(-6px); }
+  30% { transform: translateX(6px); }
+  50% { transform: translateX(-4px); }
+  70% { transform: translateX(4px); }
+  90% { transform: translateX(-2px); }
+}

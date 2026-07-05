@@ -1,0 +1,58 @@
+// 全局样式
+page {
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif;
+  background-color: #F8F9FC;
+  color: #1a1a2e;
+  -webkit-font-smoothing: antialiased;
+}
+
+// CSS变量(设计规范)
+:root {
+  --color-bg: #F8F9FC;
+  --color-card-bg: #FFFFFF;
+  --color-primary: #7C5CFF;
+  --color-primary-light: #A855F7;
+  --color-correct: #22C55E;
+  --color-wrong: #EF4444;
+  --color-warn: #F59E0B;
+  --color-text: #1a1a2e;
+  --color-text-secondary: #6b7280;
+  --color-text-muted: #9CA3AF;
+  --color-border: #E5E7EB;
+  --gradient-chinese: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  --gradient-math: linear-gradient(135deg, #4B8BFF, #7C5CFF);
+  --gradient-english: linear-gradient(135deg, #A855F7, #EC4899);
+  --gradient-science: linear-gradient(135deg, #10B981, #06B6D4);
+  --gradient-history: linear-gradient(135deg, #F59E0B, #F97316);
+  --gradient-geography: linear-gradient(135deg, #06B6D4, #3B82F6);
+  --radius-card: 24px;
+  --radius-button: 16px;
+  --shadow-card: 0 8px 24px rgba(0,0,0,0.08);
+  --shadow-card-hover: 0 12px 32px rgba(0,0,0,0.12);
+  --shadow-question: 0 4px 16px rgba(0,0,0,0.06);
+}
+
+// 全局页面切换动画
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// 全局弹性缩放
+@keyframes elasticScale {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+// 全局呼吸效果
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}

@@ -1,0 +1,20 @@
+[
+  {"subject":"chinese","difficulty":1,"text":"「床前明月光」的下一句是？","options":[{"id":"A","text":"疑是地上霜"},{"id":"B","text":"举头望明月"},{"id":"C","text":"低头思故乡"},{"id":"D","text":"春眠不觉晓"}],"correctId":"A","explanation":"「床前明月光，疑是地上霜」出自李白《静夜思》"},
+  {"subject":"chinese","difficulty":2,"text":"《西游记》的作者是谁？","options":[{"id":"A","text":"罗贯中"},{"id":"B","text":"吴承恩"},{"id":"C","text":"施耐庵"},{"id":"D","text":"曹雪芹"}],"correctId":"B","explanation":"《西游记》的作者是明代小说家吴承恩"},
+  {"subject":"chinese","difficulty":3,"text":"「但愿人长久，千里共婵娟」出自谁的作品？","options":[{"id":"A","text":"李白"},{"id":"B","text":"苏轼"},{"id":"C","text":"辛弃疾"},{"id":"D","text":"李清照"}],"correctId":"B","explanation":"出自苏轼《水调歌头·明月几时有》"},
+  {"subject":"math","difficulty":1,"text":"3 + 5 = ?","options":[{"id":"A","text":"7"},{"id":"B","text":"8"},{"id":"C","text":"9"},{"id":"D","text":"10"}],"correctId":"B","explanation":"3 + 5 = 8"},
+  {"subject":"math","difficulty":2,"text":"一个圆的半径是3，面积是多少？(π取3.14)","options":[{"id":"A","text":"18.84"},{"id":"B","text":"28.26"},{"id":"C","text":"31.4"},{"id":"D","text":"9.42"}],"correctId":"B","explanation":"圆面积 = πr² = 3.14 × 3² = 28.26"},
+  {"subject":"math","difficulty":3,"text":"sin 30° = ?","options":[{"id":"A","text":"0"},{"id":"B","text":"0.5"},{"id":"C","text":"√2/2"},{"id":"D","text":"1"}],"correctId":"B","explanation":"sin 30° = 0.5 = 1/2"},
+  {"subject":"english","difficulty":1,"text":"「apple」的中文意思是？","options":[{"id":"A","text":"香蕉"},{"id":"B","text":"苹果"},{"id":"C","text":"橘子"},{"id":"D","text":"葡萄"}],"correctId":"B","explanation":"apple 的中文意思是苹果"},
+  {"subject":"english","difficulty":2,"text":"She ___ to school every day.","options":[{"id":"A","text":"go"},{"id":"B","text":"goes"},{"id":"C","text":"going"},{"id":"D","text":"went"}],"correctId":"B","explanation":"第三人称单数用 goes"},
+  {"subject":"english","difficulty":3,"text":"If I ___ you, I would study harder.","options":[{"id":"A","text":"am"},{"id":"B","text":"was"},{"id":"C","text":"were"},{"id":"D","text":"be"}],"correctId":"C","explanation":"虚拟语气中，无论主语是谁，be 动词都用 were"},
+  {"subject":"science","difficulty":1,"text":"水的化学式是？","options":[{"id":"A","text":"CO2"},{"id":"B","text":"H2O"},{"id":"C","text":"O2"},{"id":"D","text":"NaCl"}],"correctId":"B","explanation":"水的化学式是 H2O，由两个氢原子和一个氧原子组成"},
+  {"subject":"science","difficulty":2,"text":"植物通过什么过程制造养分？","options":[{"id":"A","text":"呼吸作用"},{"id":"B","text":"光合作用"},{"id":"C","text":"蒸腾作用"},{"id":"D","text":"吸收作用"}],"correctId":"B","explanation":"植物通过光合作用利用阳光、水和二氧化碳制造养分"},
+  {"subject":"science","difficulty":3,"text":"DNA的全称是？","options":[{"id":"A","text":"脱氧核糖核酸"},{"id":"B","text":"核糖核酸"},{"id":"C","text":"蛋白质"},{"id":"D","text":"氨基酸"}],"correctId":"A","explanation":"DNA全称是脱氧核糖核酸（Deoxyribonucleic Acid）"},
+  {"subject":"history","difficulty":1,"text":"「烽火戏诸侯」的主人公是？","options":[{"id":"A","text":"周幽王"},{"id":"B","text":"秦始皇"},{"id":"C","text":"汉武帝"},{"id":"D","text":"唐太宗"}],"correctId":"A","explanation":"「烽火戏诸侯」的主人公是周幽王"},
+  {"subject":"history","difficulty":2,"text":"「破釜沉舟」出自哪位历史人物？","options":[{"id":"A","text":"刘邦"},{"id":"B","text":"项羽"},{"id":"C","text":"诸葛亮"},{"id":"D","text":"岳飞"}],"correctId":"B","explanation":"「破釜沉舟」出自项羽巨鹿之战的典故"},
+  {"subject":"history","difficulty":3,"text":"《资治通鉴》的作者是？","options":[{"id":"A","text":"司马迁"},{"id":"B","text":"司马光"},{"id":"C","text":"班固"},{"id":"D","text":"左丘明"}],"correctId":"B","explanation":"《资治通鉴》是司马光主编的编年体通史"},
+  {"subject":"geography","difficulty":1,"text":"中国有多少个省（不含直辖市、自治区）？","options":[{"id":"A","text":"21个"},{"id":"B","text":"23个"},{"id":"C","text":"25个"},{"id":"D","text":"27个"}],"correctId":"B","explanation":"中国共有23个省"},
+  {"subject":"geography","difficulty":2,"text":"世界上最长的河流是？","options":[{"id":"A","text":"长江"},{"id":"B","text":"尼罗河"},{"id":"C","text":"亚马逊河"},{"id":"D","text":"黄河"}],"correctId":"B","explanation":"尼罗河是世界上最长的河流，全长约6650公里"},
+  {"subject":"geography","difficulty":3,"text":"地球自转一圈需要多长时间？","options":[{"id":"A","text":"24小时"},{"id":"B","text":"365天"},{"id":"C","text":"12小时"},{"id":"D","text":"30天"}],"correctId":"A","explanation":"地球自转一圈是一天，约24小时"}
+]

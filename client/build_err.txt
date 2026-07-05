@@ -1,0 +1,94 @@
+
+● Webpack █████████████████████████  (0%)  
+ 
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+● Webpack █████████████████████████ building (10%) 0/12 entries 12/12 dependen
+cies 0/12 modules 1 active 
+ babel-loader › src\app.config.ts
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+● Webpack █████████████████████████ building (10%) 0/12 entries 12/12 dependen
+cies 0/12 modules 1 active 
+ babel-loader › src\app.config.ts
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+● Webpack █████████████████████████ building (10%) 0/12 entries 12/13 dependen
+cies 0/12 modules 12 active 
+ ...l-loader › node_modules\@tarojs\webpack5-runner\dist\template\custom-wrapp
+er.js
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+● Webpack █████████████████████████ building (23%) 3/12 entries 94/147 depende
+ncies 3/44 modules 32 active 
+ ...e\quiz-miniapp\client\node_modules\@babel\runtime\helpers\esm\classCallChe
+ck.js
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+● Webpack █████████████████████████ building (23%)  
+ import loader .\node_modules\postcss-loader\dist\cjs.js
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+● Webpack █████████████████████████ building (23%) 3/12 entries 155/159 depend
+encies 6/85 modules 45 active 
+ ...stcss-loader › resolve-url-loader › sass-loader › src\custom-tab-bar\index
+.scss
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+● Webpack █████████████████████████ building (23%) 3/12 entries 326/379 depend
+encies 14/110 modules 82 active 
+ ...ader › resolve-url-loader › sass-loader › src\components\SubjectCard\index
+.scss
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+● Webpack █████████████████████████ building (23%) 3/12 entries 365/379 depend
+encies 15/115 modules 96 active 
+ ...|d:\game\quiz-miniapp\client\node_modules\@babel\runtime\helpers\esm\toArr
+ay.js
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+● Webpack █████████████████████████ building (23%) 3/12 entries 416/440 depend
+encies 29/134 modules 93 active 
+ ...iapp\client\node_modules\@babel\runtime\helpers\esm\isNativeReflectConstru
+ct.js
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+● Webpack █████████████████████████ building (23%) 3/12 entries 461/491 depend
+encies 52/157 modules 94 active 
+ node_modules\react-reconciler\constants.js
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+● Webpack █████████████████████████ building (23%) 3/12 entries 492/513 depend
+encies 66/160 modules 94 active 
+ javascript\esm|d:\game\quiz-miniapp\client\node_modules\tslib\tslib.es6.mjs
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+● Webpack █████████████████████████ building (32%) 5/12 entries 525/528 depend
+encies 121/165 modules 43 active 
+ babel-loader › node_modules\@tarojs\api\dist\env.js
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+● Webpack █████████████████████████ building (32%) 5/12 entries 542/542 depend
+encies 135/172 modules 36 active 
+ node_modules\css-loader\dist\runtime\noSourceMaps.js
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+● Webpack █████████████████████████ sealing (70%)  
+ plugins
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+● Webpack █████████████████████████ sealing (88%)  
+ runtime requirements
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+● Webpack █████████████████████████ sealing (92%) asset processing 
+ CssMinimizerPlugin
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+● Webpack █████████████████████████ sealing (92%) asset processing 
+ RealContentHashPlugin
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+✖ Webpack
+  Compiled with some errors in 3.53s
+

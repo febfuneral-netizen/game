@@ -1,0 +1,15 @@
+{
+  "name": "quiz-miniapp",
+  "version": "1.0.0",
+  "description": "学科答题闯关游戏 (Taro 微信小程序 + Express + MongoDB)",
+  "private": true,
+  "scripts": {
+    "install:all": "cd client && npm install && cd ../server && npm install",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev:weapp",
+    "build:server": "cd server && npm run build",
+    "build:client": "cd client && npm run build:weapp",
+    "seed": "cd server && npm run seed",
+    "deploy": "cd deploy && bash deploy.sh"
+  }
+}

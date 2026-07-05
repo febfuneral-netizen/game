@@ -1,0 +1,181 @@
+// 首页 — 竖排大卡片铺满屏幕 + 双语标题 + iPad 横屏自适应
+.index-page {
+  min-height: 100vh;
+  background: #f5f6fa;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+
+  &__inner {
+    padding: 24px 20px 16px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  // ─── Header ───
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+  }
+
+  &__header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  // 双语标题
+  &__title-cn {
+    font-size: 38px;
+    font-weight: 800;
+    color: #f97060;
+    line-height: 1.1;
+    letter-spacing: 1px;
+  }
+  &__title-en {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    color: #9ca3af;
+    line-height: 1.2;
+    letter-spacing: 0.5px;
+  }
+
+  &__header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  // 对战按钮
+  &__battle-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #f97060, #a259ff);
+    box-shadow: 0 4px 16px rgba(162, 89, 255, 0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+    &:active {
+      transform: scale(0.95);
+      box-shadow: 0 2px 10px rgba(162, 89, 255, 0.25);
+    }
+  }
+  &__battle-icon {
+    font-size: 16px;
+  }
+  &__battle-text {
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  // 头像按钮
+  &__profile-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s ease;
+
+    &:active {
+      transform: scale(0.92);
+    }
+  }
+  &__profile-avatar {
+    font-size: 16px;
+    font-weight: 700;
+    color: #6b7280;
+  }
+
+  // ─── 竖向卡片列表 ───
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    // 隐藏滚动条
+    &::-webkit-scrollbar { display: none; }
+  }
+
+  &__card-wrapper {
+    transform: translateY(28px);
+    opacity: 0;
+    transition: all 0.5s ease;
+    flex-shrink: 0;
+  }
+
+  // ─── 底部 ───
+  &__footer {
+    text-align: center;
+    padding: 8px 0 0;
+    flex-shrink: 0;
+  }
+  &__footer-bg {
+    display: inline-block;
+    padding: 6px 16px;
+    background: rgba(124, 92, 255, 0.06);
+    border-radius: 16px;
+  }
+  &__footer-text {
+    font-size: 12px;
+    color: #9ca3af;
+    letter-spacing: 2px;
+    font-weight: 600;
+  }
+}
+
+// ─── iPad mini 7 横屏适配 (aspect-ratio > 1.3 视为横屏) ───
+@media (min-width: 768px) and (max-width: 820px) and (orientation: landscape),
+       (min-width: 820px) and (orientation: landscape) {
+  .index-page {
+    &__inner {
+      padding: 24px 32px 16px;
+    }
+
+    &__list {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      flex: 1;
+      overflow-y: visible;
+    }
+
+    &__card-wrapper {
+      // 横屏时卡片高度稍小
+    }
+  }
+}
+
+// ─── 更宽平板 / 桌面横屏 ───
+@media (min-width: 1024px) and (orientation: landscape) {
+  .index-page {
+    &__inner {
+      max-width: 960px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    &__list {
+      grid-template-columns: 1fr 1fr 1fr !important;
+      gap: 14px;
+    }
+  }
+}
