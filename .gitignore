@@ -8,3 +8,4 @@ server-upload.tar.gz
 *.log
 .DS_Store
 Thumbs.db
+deploy/ecosystem.config.js
