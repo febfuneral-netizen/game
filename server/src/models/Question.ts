@@ -7,6 +7,7 @@ export interface IOption {
 
 export interface IQuestion extends Document {
   subject: 'chinese' | 'math' | 'english' | 'science' | 'history' | 'geography';
+  chapter?: number;          // 章节 1~5（可选，向后兼容旧数据）
   difficulty: 1 | 2 | 3;
   type: 'single';
   text: string;
@@ -22,6 +23,7 @@ const QuestionSchema = new Schema<IQuestion>({
     required: true,
     index: true,
   },
+  chapter: { type: Number, min: 1, max: 5, default: undefined, index: true },
   difficulty: { type: Number, enum: [1, 2, 3], required: true, index: true },
   type: { type: String, enum: ['single'], default: 'single' },
   text: { type: String, required: true },
@@ -36,5 +38,6 @@ const QuestionSchema = new Schema<IQuestion>({
 });
 
 QuestionSchema.index({ subject: 1, difficulty: 1 });
+QuestionSchema.index({ subject: 1, chapter: 1 });
 
 export default mongoose.model<IQuestion>('Question', QuestionSchema);

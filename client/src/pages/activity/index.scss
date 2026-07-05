@@ -1,0 +1,193 @@
+// 活动页 — 精彩活动列表 + 渐变背景装饰
+.activity-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #fff8f0 0%, #f5f6fa 40%);
+  position: relative;
+  overflow: hidden;
+
+  &__bg-decor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 320px;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &__circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.12;
+
+    &--1 {
+      width: 200px;
+      height: 200px;
+      background: #f59e0b;
+      top: -40px;
+      right: -60px;
+    }
+    &--2 {
+      width: 140px;
+      height: 140px;
+      background: #ec4899;
+      top: 60px;
+      left: -50px;
+    }
+    &--3 {
+      width: 100px;
+      height: 100px;
+      background: #8b5cf6;
+      top: 120px;
+      right: 50px;
+    }
+  }
+
+  &__inner {
+    position: relative;
+    z-index: 1;
+    padding: 24px 20px;
+  }
+
+  // ─── Hero 标题区 ───
+  &__hero {
+    text-align: center;
+    padding: 20px 0 16px;
+  }
+
+  &__hero-icon {
+    display: block;
+    font-size: 52px;
+    margin-bottom: 8px;
+    animation: activityBounce 2s ease-in-out infinite;
+  }
+
+  @keyframes activityBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  &__hero-title {
+    display: block;
+    font-size: 30px;
+    font-weight: 800;
+    color: #1f2937;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+
+  &__hero-sub {
+    display: block;
+    font-size: 14px;
+    color: #9ca3af;
+    font-weight: 500;
+  }
+
+  // ─── 活动列表 ───
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding-bottom: 24px;
+  }
+}
+
+// ─── 活动卡片 ───
+.activity-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
+
+  &--coming {
+    // 即将上线状态
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, #f59e0b, #ec4899);
+      border-radius: 0 2px 2px 0;
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  &__tag {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+  }
+
+  &__tag-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: #d97706;
+  }
+
+  &__date {
+    font-size: 12px;
+    color: #9ca3af;
+    font-weight: 500;
+  }
+
+  &__body {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  &__icon {
+    font-size: 36px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  &__info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__name {
+    display: block;
+    font-size: 17px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 4px;
+  }
+
+  &__desc {
+    display: block;
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.5;
+  }
+
+  &__footer {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  &__badge {
+    background: #f9fafb;
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-size: 12px;
+    color: #6b7280;
+    font-weight: 500;
+  }
+}

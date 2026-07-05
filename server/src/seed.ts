@@ -1,15 +1,11 @@
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+import { config } from './config';
 import Question from './models/Question';
 import seedData from '../data/seed_full.json';
 
-dotenv.config();
-
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/quiz-miniapp';
-
 async function seed() {
   try {
-    await mongoose.connect(MONGO_URI);
+    await mongoose.connect(config.mongoUri);
     console.log('✅ MongoDB 连接成功');
 
     // 检查是否已有数据

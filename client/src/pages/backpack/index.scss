@@ -1,0 +1,360 @@
+.backpack-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #F5F7FA;
+
+  // ─── 顶部导航 ───
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    background: #FFFFFF;
+    flex-shrink: 0;
+  }
+  &__header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  &__back {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #F3F4F6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__back-icon {
+    font-size: 40px;
+    color: #4B5563;
+    font-weight: 700;
+    line-height: 1;
+  }
+  &__header-title {
+    display: flex;
+    flex-direction: column;
+  }
+  &__title {
+    font-size: 40px;
+    font-weight: 800;
+    color: #1F2937;
+    line-height: 1.2;
+  }
+  &__subtitle {
+    font-size: 22px;
+    color: #9CA3AF;
+    margin-top: 4px;
+  }
+  &__go-shop {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 24px;
+    border-radius: 32px;
+    background: linear-gradient(135deg, #FF6B6B, #A855F7);
+  }
+  &__go-shop-icon {
+    font-size: 26px;
+  }
+  &__go-shop-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: #FFFFFF;
+  }
+
+  // ─── 标签切换 ───
+  &__tabs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 24px;
+    background: #FFFFFF;
+    flex-shrink: 0;
+  }
+  &__tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 0;
+    border-radius: 40px;
+    background: #F3F4F6;
+  }
+  &__tab--active {
+    background: linear-gradient(135deg, #FF6B6B, #A855F7);
+    .backpack-page__tab-text {
+      color: #FFFFFF;
+    }
+    .backpack-page__tab-badge {
+      background: rgba(255,255,255,0.25);
+    }
+    .backpack-page__tab-badge-text {
+      color: #FFFFFF;
+    }
+  }
+  &__tab-text {
+    font-size: 26px;
+    font-weight: 600;
+    color: #6B7280;
+  }
+  &__tab-badge {
+    min-width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    background: #E5E7EB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+  }
+  &__tab-badge-text {
+    font-size: 20px;
+    font-weight: 700;
+    color: #6B7280;
+  }
+
+  // ─── 内容区 ───
+  &__content {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  // ─── 道具 Tab ───
+  &__props {
+    padding: 24px;
+  }
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  &__card {
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+    min-height: 260px;
+  }
+  &__card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  &__card-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  &__card-icon-text {
+    font-size: 40px;
+  }
+  &__card-equipped {
+    padding: 6px 14px;
+    border-radius: 16px;
+    background: #D1FAE5;
+  }
+  &__card-equipped-text {
+    font-size: 20px;
+    font-weight: 600;
+    color: #059669;
+  }
+  &__card-name {
+    font-size: 30px;
+    font-weight: 700;
+    color: #1F2937;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  &__card-desc {
+    font-size: 22px;
+    color: #9CA3AF;
+    line-height: 1.4;
+    flex: 1;
+    margin-bottom: 16px;
+  }
+  &__card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+  }
+  &__card-count {
+    font-size: 22px;
+    color: #6B7280;
+  }
+  &__card-btn {
+    padding: 10px 24px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, #FF6B6B, #A855F7);
+    &--loading {
+      opacity: 0.6;
+    }
+  }
+  &__card-btn-text {
+    font-size: 22px;
+    font-weight: 700;
+    color: #FFFFFF;
+  }
+
+  // ─── 卡牌 Tab ───
+  &__cards {
+    padding: 24px;
+  }
+  &__filters {
+    flex-shrink: 0;
+    margin-bottom: 24px;
+    white-space: nowrap;
+  }
+  &__filters-inner {
+    display: flex;
+    gap: 16px;
+    padding: 2px 0;
+  }
+  &__filter {
+    padding: 12px 28px;
+    border-radius: 28px;
+    background: #FFFFFF;
+    border: 2px solid #E5E7EB;
+  }
+  &__filter--active {
+    background: #1F2937;
+    border-color: #1F2937;
+    .backpack-page__filter-text {
+      color: #FFFFFF;
+    }
+  }
+  &__filter-text {
+    font-size: 24px;
+    font-weight: 600;
+    color: #6B7280;
+  }
+  &__card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  &__card-item {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+  &__card-count-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    min-width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background: rgba(0,0,0,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+  }
+  &__card-count-badge-text {
+    font-size: 22px;
+    font-weight: 700;
+    color: #FFFFFF;
+  }
+  &__card-content {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+  &__card-emoji {
+    font-size: 72px;
+  }
+  &__card-rarity-badge {
+    padding: 6px 16px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.25);
+  }
+  &__card-rarity-text {
+    font-size: 22px;
+    font-weight: 800;
+    color: #FFFFFF;
+  }
+  &__card-footer {
+    background: #FFFFFF;
+    padding: 16px 20px;
+  }
+  &__card-item-name {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1F2937;
+    display: block;
+  }
+  &__card-item-subject {
+    font-size: 22px;
+    color: #9CA3AF;
+    display: block;
+    margin-top: 4px;
+  }
+
+  // ─── 通用状态 ───
+  &__loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 0;
+  }
+  &__loading-text {
+    font-size: 28px;
+    color: #9CA3AF;
+  }
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 0;
+  }
+  &__empty-emoji {
+    font-size: 80px;
+  }
+  &__empty-text {
+    font-size: 30px;
+    color: #6B7280;
+    font-weight: 600;
+    margin-top: 16px;
+  }
+  &__empty-hint {
+    font-size: 24px;
+    color: #9CA3AF;
+    margin-top: 8px;
+  }
+  &__empty-btn {
+    margin-top: 32px;
+    padding: 16px 48px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #FF6B6B, #A855F7);
+  }
+  &__empty-btn-text {
+    font-size: 26px;
+    color: #FFFFFF;
+    font-weight: 600;
+  }
+  &__tip {
+    padding: 32px 8px 8px;
+    text-align: center;
+  }
+  &__tip-text {
+    font-size: 22px;
+    color: #9CA3AF;
+  }
+}

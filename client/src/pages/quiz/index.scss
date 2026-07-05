@@ -161,9 +161,9 @@ $radius-y: 48px;
   }
 
   &__subject-badge {
-    padding: 4px 14px;
+    padding: 6px 16px;
     border-radius: 20px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 700;
     color: #fff;
   }
@@ -188,19 +188,19 @@ $radius-y: 48px;
     z-index: 10;
   }
   &__score-text {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 800;
     color: #fef3c7;
     text-shadow: 0 0 12px rgba(249,112,96,0.5);
   }
   &__combo-badge {
     background: linear-gradient(135deg, #a855f7, #e879f9);
-    border-radius: 12px;
-    padding: 2px 10px;
+    border-radius: 14px;
+    padding: 4px 14px;
     animation: comboBadgePop 0.3s ease;
   }
   &__combo-text {
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 800;
     color: #fff;
     letter-spacing: 1px;
@@ -292,21 +292,23 @@ $radius-y: 48px;
     padding: 8px 0 4px;
   }
   &__q-label-icon {
-    font-size: 14px;
+    font-size: 20px;
   }
   &__q-label-text {
-    font-size: 13px;
+    font-size: 18px;
     font-weight: 600;
     color: #818cf8;
   }
 
   // ─── 题目文本 ───
   &__question {
-    font-size: 18px;
+    font-size: 38px;
     font-weight: 600;
     color: #1e1b4b;
-    line-height: 1.6;
-    padding: 8px 20px 20px;
+    line-height: 1.5;
+    padding: 12px 24px 24px;
+    word-break: break-all;
+    overflow-wrap: break-word;
   }
 
   // ─── 选项列表 ───
@@ -322,7 +324,7 @@ $radius-y: 48px;
   &__hint {
     text-align: center;
     padding: 8px 20px 24px;
-    font-size: 13px;
+    font-size: 16px;
     color: #9ca3af;
   }
   &__hint-correct {
@@ -340,7 +342,7 @@ $radius-y: 48px;
     gap: 8px;
   }
   &__hint-combo {
-    font-size: 13px;
+    font-size: 16px;
     font-weight: 800;
     color: #a855f7;
     animation: comboBadgePop 0.3s ease;

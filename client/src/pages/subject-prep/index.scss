@@ -44,7 +44,7 @@
     color: rgba(255,255,255,0.6);
   }
   &__back-text {
-    font-size: 14px;
+    font-size: 16px;
     color: rgba(255,255,255,0.6);
   }
 
@@ -74,11 +74,11 @@
   }
 
   &__subject-emoji {
-    font-size: 28px;
+    font-size: 36px;
   }
 
   &__subject-name {
-    font-size: 24px;
+    font-size: 34px;
     font-weight: 800;
     color: #fff;
     letter-spacing: 2px;
@@ -86,7 +86,7 @@
 
   &__best-score {
     margin-top: 8px;
-    font-size: 14px;
+    font-size: 18px;
     color: rgba(255,255,255,0.5);
     font-weight: 500;
   }
@@ -107,9 +107,9 @@
   }
 
   &__section-title {
-    font-size: 14px;
+    font-size: 20px;
     font-weight: 600;
-    color: rgba(255,255,255,0.5);
+    color: rgba(255,255,255,0.6);
     letter-spacing: 2px;
     margin-bottom: 12px;
     padding-left: 4px;
@@ -127,7 +127,7 @@
     flex-direction: column;
     align-items: center;
     gap: 4px;
-    width: 64px;
+    width: 72px;
     padding: 12px 0;
     border-radius: 16px;
     background: rgba(255,255,255,0.06);
@@ -148,19 +148,19 @@
   }
 
   &__chapter-num {
-    font-size: 22px;
+    font-size: 34px;
     font-weight: 800;
     color: rgba(255,255,255,0.7);
   }
 
   &__chapter-label {
-    font-size: 11px;
+    font-size: 16px;
     color: rgba(255,255,255,0.4);
   }
 
   &__chapter-lock {
     position: absolute;
-    font-size: 14px;
+    font-size: 22px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -190,17 +190,17 @@
   }
 
   &__diff-label {
-    font-size: 16px;
+    font-size: 24px;
     font-weight: 600;
   }
 
   &__diff-time {
-    font-size: 20px;
+    font-size: 32px;
     font-weight: 800;
   }
 
   &__diff-score {
-    font-size: 12px;
+    font-size: 18px;
     font-weight: 500;
   }
 
@@ -234,12 +234,12 @@
   }
 
   &__rule-icon {
-    font-size: 14px;
+    font-size: 20px;
   }
 
   &__rule-text {
-    font-size: 13px;
-    color: rgba(255,255,255,0.45);
+    font-size: 20px;
+    color: rgba(255,255,255,0.5);
     font-weight: 400;
   }
 
@@ -272,14 +272,14 @@
   }
 
   &__start-text {
-    font-size: 22px;
+    font-size: 32px;
     font-weight: 800;
     color: #fff;
     letter-spacing: 3px;
   }
 
   &__start-sub {
-    font-size: 12px;
+    font-size: 18px;
     font-weight: 500;
     color: rgba(255,255,255,0.7);
     margin-top: 4px;

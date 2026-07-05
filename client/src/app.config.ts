@@ -6,6 +6,10 @@ export default defineAppConfig({
     'pages/quiz/index',
     'pages/subject-prep/index',
     'pages/result/index',
+    'pages/leaders/index',
+    'pages/shop/index',
+    'pages/backpack/index',
+    'pages/activity/index',
   ],
   window: {
     backgroundTextStyle: 'light',

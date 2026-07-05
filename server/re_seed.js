@@ -1,24 +1,35 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
-const uri = 'mongodb://localhost:27017/quiz-miniapp';
+
+const uri = process.env.MONGO_URI;
+if (!uri) {
+  console.error('MONGO_URI not set in .env');
+  process.exit(1);
+}
 
 async function main() {
   await mongoose.connect(uri);
-  console.log('connected');
+  console.log('connected to MongoDB');
   
-  // Drop old data
-  const Question = mongoose.model('Question', new mongoose.Schema({
-    subject: String
-  }));
-  await mongoose.connection.db.collection('questions').drop();
+  const col = mongoose.connection.db.collection('questions');
+  
+  // Drop existing questions
+  try { await col.drop(); } catch {}
   console.log('old questions dropped');
   
-  // eslint-disable-next-line no-undef
   const data = require('./data/seed_full.json');
-  await Question.insertMany(data);
+  
+  // Bypass Mongoose schema — directly insert via native driver
+  // to preserve all fields (chapter, text, options, correctId, explanation)
+  await col.insertMany(data);
   console.log('inserted:', data.length, 'questions');
   
-  const count = await mongoose.connection.db.collection('questions').countDocuments();
+  const count = await col.countDocuments();
   console.log('total questions:', count);
+  
+  // Verify first document has all fields
+  const sample = await col.findOne();
+  console.log('sample fields:', Object.keys(sample).join(', '));
   
   process.exit(0);
 }

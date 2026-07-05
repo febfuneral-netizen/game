@@ -1,0 +1,176 @@
+.leaders {
+  min-height: 100vh;
+  background: #F8F9FC;
+  padding-bottom: 40px;
+
+  // 我的排名卡片
+  &__me {
+    padding: 24px 32px;
+  }
+  &__me-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #7C5CFF, #A855F7);
+    border-radius: 20px;
+    padding: 24px 28px;
+    box-shadow: 0 8px 24px rgba(124, 92, 255, 0.25);
+  }
+  &__me-label {
+    font-size: 28px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  &__me-rank {
+    font-size: 48px;
+    font-weight: 800;
+    color: #fff;
+  }
+
+  // 学科 tab
+  &__tabs {
+    white-space: nowrap;
+    padding: 0 24px 16px;
+    display: flex;
+  }
+  &__tab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 28px;
+    margin-right: 12px;
+    border-radius: 24px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+
+    &--active {
+      background: linear-gradient(135deg, #7C5CFF, #A855F7);
+      box-shadow: 0 4px 16px rgba(124, 92, 255, 0.3);
+    }
+  }
+  &__tab-text {
+    font-size: 26px;
+    font-weight: 600;
+    color: #6b7280;
+
+    .leaders__tab--active & {
+      color: #fff;
+    }
+  }
+
+  // 加载
+  &__loading {
+    display: flex;
+    justify-content: center;
+    padding: 80px 0;
+    font-size: 28px;
+    color: #9CA3AF;
+  }
+
+  // 空状态
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 80px 0;
+  }
+  &__empty-icon { font-size: 64px; margin-bottom: 16px; }
+  &__empty-text { font-size: 28px; color: #9CA3AF; }
+
+  // 列表
+  &__list {
+    height: calc(100vh - 280px);
+    padding: 0 32px;
+  }
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  // 排名数字
+  &__rank {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: #F3F4F6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    &--gold {
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      .leaders__rank-num { color: #fff; font-size: 28px; }
+    }
+    &--silver {
+      background: linear-gradient(135deg, #C0C0C0, #A8A8A8);
+      .leaders__rank-num { color: #fff; font-size: 28px; }
+    }
+    &--bronze {
+      background: linear-gradient(135deg, #CD7F32, #B87333);
+      .leaders__rank-num { color: #fff; font-size: 28px; }
+    }
+  }
+  &__rank-num {
+    font-size: 26px;
+    font-weight: 700;
+    color: #6b7280;
+  }
+
+  // 头像
+  &__avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7C5CFF, #A855F7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  &__avatar-text {
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  // 用户名
+  &__info {
+    flex: 1;
+    min-width: 0;
+  }
+  &__name {
+    font-size: 28px;
+    font-weight: 600;
+    color: #1a1a2e;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+  }
+
+  // 分数
+  &__score {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  &__score-num {
+    font-size: 32px;
+    font-weight: 800;
+    color: #7C5CFF;
+  }
+  &__score-label {
+    font-size: 22px;
+    color: #9CA3AF;
+  }
+}

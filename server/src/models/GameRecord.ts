@@ -10,6 +10,8 @@ export interface IQuestionResult {
 export interface IGameRecord extends Document {
   userId: mongoose.Types.ObjectId;
   subject: string;
+  chapter: number;         // 章节 1~5
+  difficulty: string;      // 'easy' | 'normal' | 'hard'
   mode: 'single';
   status: 'completed' | 'eliminated';
   totalQuestions: number;
@@ -34,6 +36,8 @@ const QuestionResultSchema = new Schema<IQuestionResult>(
 const GameRecordSchema = new Schema<IGameRecord>({
   userId: { type: Schema.Types.ObjectId, ref: 'User', required: true, index: true },
   subject: { type: String, required: true },
+  chapter: { type: Number, default: 1 },
+  difficulty: { type: String, enum: ['easy', 'normal', 'hard'], default: 'normal' },
   mode: { type: String, enum: ['single'], default: 'single' },
   status: { type: String, enum: ['completed', 'eliminated'], required: true },
   totalQuestions: { type: Number, default: 10 },

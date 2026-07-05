@@ -1,59 +1,26 @@
 import { Router, Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
-import mongoose from 'mongoose';
 import User from '../models/User';
 import GameRecord from '../models/GameRecord';
+import DailyChallenge from '../models/DailyChallenge';
+import { authMiddleware, AuthRequest } from '../middleware/auth';
+import { config } from '../config';
 
 const router = Router();
-const JWT_SECRET = process.env.JWT_SECRET || 'quiz-miniapp-secret-key-2026';
-
-// ===== 每日挑战模型 =====
-const DailyChallengeSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  date: { type: String, required: true }, // YYYY-MM-DD
-  subject: { type: String, required: true },
-  score: { type: Number, default: 0 },
-  completed: { type: Boolean, default: false },
-  questionsAnswered: { type: Number, default: 0 },
-  createdAt: { type: Date, default: Date.now },
-});
-
-DailyChallengeSchema.index({ userId: 1, date: 1 }, { unique: true });
-const DailyChallenge = mongoose.model('DailyChallenge', DailyChallengeSchema);
-
-/**
- * 获取 Token 中的 userId
- */
-function getUserId(req: Request): string | null {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) return null;
-  try {
-    const token = authHeader.replace('Bearer ', '');
-    const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
-    return decoded.userId;
-  } catch {
-    return null;
-  }
-}
 
 /**
  * GET /api/challenge/daily
  * 获取今日挑战状态
  */
-router.get('/daily', async (req: Request, res: Response): Promise<void> => {
-  const userId = getUserId(req);
-  if (!userId) {
-    res.status(401).json({ error: '未授权' });
-    return;
-  }
+router.get('/daily', authMiddleware, async (req: AuthRequest, res: Response): Promise<void> => {
   try {
+    const { userId } = req;
     const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
     let challenge = await DailyChallenge.findOne({ userId, date: today }).lean();
 
     if (!challenge) {
-      // 生成新的每日挑战
-      const subjects = ['chinese', 'math', 'english', 'science', 'history', 'geography'];
-      const randomSubject = subjects[Math.floor(Math.random() * subjects.length)];
+      const randomSubject = config.dailyChallenge.subjects[
+        Math.floor(Math.random() * config.dailyChallenge.subjects.length)
+      ];
       challenge = await DailyChallenge.create({
         userId,
         date: today,
@@ -86,13 +53,9 @@ router.get('/daily', async (req: Request, res: Response): Promise<void> => {
  * POST /api/challenge/daily/complete
  * 完成每日挑战
  */
-router.post('/daily/complete', async (req: Request, res: Response): Promise<void> => {
-  const userId = getUserId(req);
-  if (!userId) {
-    res.status(401).json({ error: '未授权' });
-    return;
-  }
+router.post('/daily/complete', authMiddleware, async (req: AuthRequest, res: Response): Promise<void> => {
   try {
+    const { userId } = req;
     const today = new Date().toISOString().split('T')[0];
     const { score, questionsAnswered } = req.body;
 
@@ -122,13 +85,9 @@ router.post('/daily/complete', async (req: Request, res: Response): Promise<void
  * GET /api/challenge/stats
  * 获取挑战统计数据（连续天数、总挑战数等）
  */
-router.get('/stats', async (req: Request, res: Response): Promise<void> => {
-  const userId = getUserId(req);
-  if (!userId) {
-    res.status(401).json({ error: '未授权' });
-    return;
-  }
+router.get('/stats', authMiddleware, async (req: AuthRequest, res: Response): Promise<void> => {
   try {
+    const { userId } = req;
     const totalChallenges = await DailyChallenge.countDocuments({ userId, completed: true });
     const history = await DailyChallenge.find({ userId, completed: true })
       .sort({ date: -1 })

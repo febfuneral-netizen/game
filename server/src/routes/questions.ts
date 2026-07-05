@@ -7,19 +7,39 @@ const router = Router();
 /**
  * GET /api/questions
  * 公开接口 - 查询题目（不含正确答案）
- * Query: ?subject=math&difficulty=1&limit=10
+ * admin模式(?admin=1) - 需JWT鉴权，含correctId，供后台管理使用
+ * Query: ?subject=math&chapter=1&difficulty=1&limit=10&skip=0&admin=1
  */
 router.get('/', async (req: Request, res: Response): Promise<void> => {
-  const { subject, difficulty, limit } = req.query;
+  const { subject, difficulty, chapter, limit, skip, admin } = req.query;
+  const isAdmin = admin === '1';
+
+  // admin 模式需要鉴权
+  if (isAdmin) {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      res.status(401).json({ error: '管理员需要登录' });
+      return;
+    }
+  }
+
   const query: any = {};
   if (subject) query.subject = subject;
   if (difficulty) query.difficulty = Number(difficulty);
+  if (chapter) query.chapter = Number(chapter);
 
   try {
-    const questions = await Question.find(query)
-      .select('-correctId')
+    const q = Question.find(query)
       .limit(Number(limit) || 100)
-      .exec();
+      .skip(Number(skip) || 0)
+      .sort({ subject: 1, chapter: 1, difficulty: 1 });
+
+    // 非管理员模式隐藏正确答案
+    if (!isAdmin) {
+      q.select('-correctId');
+    }
+
+    const questions = await q.exec();
     res.json(questions);
   } catch (err) {
     res.status(500).json({ error: '查询失败' });

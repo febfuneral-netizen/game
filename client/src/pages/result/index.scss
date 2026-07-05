@@ -78,7 +78,7 @@
 
   // 标题
   &__title {
-    font-size: 28px;
+    font-size: 48px;
     font-weight: 800;
     color: #fff;
     margin-bottom: 32px;
@@ -94,7 +94,7 @@
     margin-bottom: 16px;
   }
   &__star {
-    font-size: 32px;
+    font-size: 52px;
     animation: starPop 0.4s cubic-bezier(0.23, 1, 0.32, 1) both;
     filter: drop-shadow(0 2px 10px rgba(251, 191, 36, 0.6));
     &:nth-child(1) { animation-delay: 0.4s; }
@@ -127,16 +127,16 @@
   }
 
   &__avatar-emoji {
-    font-size: 48px;
+    font-size: 68px;
     animation: avatarBounce 1s ease infinite 0.7s;
   }
 
   // 得分徽章
   &__score-badge {
     margin-top: 12px;
-    padding: 6px 32px;
-    border-radius: 20px;
-    font-size: 16px;
+    padding: 10px 48px;
+    border-radius: 26px;
+    font-size: 28px;
     font-weight: 700;
     color: #fff;
     background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
@@ -146,7 +146,7 @@
 
   // 学科
   &__subject {
-    font-size: 15px;
+    font-size: 22px;
     color: rgba(255, 255, 255, 0.5);
     margin-top: 16px;
     animation: fadeSlideDown 0.5s ease 0.7s both;
@@ -164,7 +164,7 @@
   }
 
   &__card-title {
-    font-size: 15px;
+    font-size: 22px;
     font-weight: 600;
     color: rgba(255, 255, 255, 0.7);
     display: block;
@@ -183,20 +183,20 @@
 
   &__stat-value {
     display: block;
-    font-size: 32px;
+    font-size: 48px;
     font-weight: 800;
     color: #fff;
   }
   &__stat-label {
     display: block;
-    font-size: 13px;
+    font-size: 20px;
     color: rgba(255, 255, 255, 0.4);
     margin-top: 4px;
   }
 
   // 鼓励文案
   &__message {
-    font-size: 14px;
+    font-size: 22px;
     color: rgba(255, 255, 255, 0.5);
     margin-top: 24px;
     text-align: center;
@@ -207,13 +207,13 @@
   // 按钮组
   &__btn {
     width: 100%;
-    padding: 14px 0;
+    padding: 18px 0;
     border-radius: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 20px;
-    font-size: 16px;
+    font-size: 24px;
     font-weight: 700;
     color: #fff;
     animation: fadeSlideDown 0.5s ease 0.8s both;
@@ -235,7 +235,7 @@
   }
 
   &__btn-text {
-    font-size: 16px;
+    font-size: 24px;
     font-weight: 700;
     color: #fff;
   }

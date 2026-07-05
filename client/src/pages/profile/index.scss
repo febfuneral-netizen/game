@@ -34,6 +34,12 @@
     align-items: center;
     justify-content: center;
     box-shadow: 0 8px 24px rgba(7, 193, 96, 0.3);
+    transition: opacity 0.2s ease;
+
+    &--loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
   }
   &__login-btn-text { font-size: 32px; font-weight: 600; color: #fff; }
 
@@ -90,6 +96,19 @@
     font-size: 32px;
     font-weight: 700;
     color: #1a1a2e;
+  }
+  &__title-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 2px;
+  }
+  &__title-emoji {
+    font-size: 24px;
+  }
+  &__title-name {
+    font-size: 24px;
+    font-weight: 700;
   }
   &__uid {
     font-size: 22px;
@@ -229,6 +248,45 @@
     font-weight: 500;
   }
 
+  // 成就徽章网格
+  &__achievement-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  }
+  &__achievement-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 12px 4px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #F0FDF4, #ECFDF5);
+    transition: transform 0.2s ease;
+    &--locked {
+      background: #F3F4F6;
+      opacity: 0.5;
+    }
+  }
+  &__achievement-emoji {
+    font-size: 36px;
+    margin-bottom: 6px;
+  }
+  &__achievement-name {
+    font-size: 22px;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 2px;
+  }
+  &__achievement-desc {
+    font-size: 18px;
+    color: #9CA3AF;
+  }
+
   // 底部菜单
   &__menu {
     margin: 0 32px;
@@ -258,6 +316,13 @@
     font-size: 32px;
     color: #9CA3AF;
   }
+  &__menu-item--logout {
+    margin-top: 0;
+    .profile-page__menu-text {
+      color: #EF4444;
+    }
+  }
+
 }
 
 @keyframes cardSlideIn {

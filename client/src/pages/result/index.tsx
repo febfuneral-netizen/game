@@ -8,8 +8,8 @@ import { TOTAL_QUESTIONS } from '../../utils/constants';
 import './index.scss';
 
 const Result: React.FC = () => {
-  const { state, dispatch } = useGame();
-  const { status, currentSubject, questions, gameId } = state;
+  const { state, dispatch, doStartGame } = useGame();
+  const { status, currentSubject, questions, gameId, difficulty, currentChapter } = state;
   const [showConfetti, setShowConfetti] = useState(false);
   const [gameResult, setGameResult] = useState<any>(null);
   const [confettiPieces] = useState(() =>
@@ -27,7 +27,9 @@ const Result: React.FC = () => {
     if (!gameId) return;
     getGameResult(gameId)
       .then((data) => setGameResult(data))
-      .catch((err) => console.error('获取游戏结果失败:', err));
+      .catch(() => {
+        // 忽略加载错误，避免未处理的 Promise 异常
+      });
   }, [gameId]);
 
   useEffect(() => {
@@ -40,13 +42,17 @@ const Result: React.FC = () => {
   };
 
   const handleRetry = () => {
+    const subject = currentSubject;
+    const diff = difficulty;
+    const chapter = currentChapter;
     dispatch({ type: 'RESET' });
-    Taro.redirectTo({ url: `/pages/quiz/index?subject=${currentSubject}` });
+    Taro.reLaunch({ url: `/pages/subject-prep/index?subject=${subject}&difficulty=${diff}&chapter=${chapter}` });
   };
 
   const correctCount = gameResult?.correctCount ?? 0;
   const totalQuestions = gameResult?.totalQuestions ?? questions.length;
-  const score = gameResult?.score ?? 0;
+  // 优先用 state.score（本局累加分数），其次 API 返回，再次 FINISH_GAME 存入的 totalScore
+  const score = state.score || gameResult?.score || state.gameResult?.totalScore || 0;
   const perfect = correctCount === totalQuestions;
 
   // 星级：0题→0星，<一半→1星，<全部→2星，全对→3星
@@ -107,7 +113,7 @@ const Result: React.FC = () => {
 
         {/* 得分徽章 */}
         <View className='result-page__score-badge'>
-          得分 {score} / {totalQuestions}
+          {score} 分
         </View>
 
         {/* 学科 */}

@@ -1,10 +1,10 @@
 import { Router, Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
 import User from '../models/User';
 import GameRecord from '../models/GameRecord';
+import { authMiddleware, AuthRequest } from '../middleware/auth';
+import { config } from '../config';
 
 const router = Router();
-const JWT_SECRET = process.env.JWT_SECRET || 'quiz-miniapp-secret-key-2026';
 
 /**
  * GET /api/leaderboard
@@ -14,7 +14,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'quiz-miniapp-secret-key-2026';
 router.get('/', async (req: Request, res: Response): Promise<void> => {
   try {
     const { subject, limit = '20' } = req.query;
-    const lim = Math.min(parseInt(limit as string) || 20, 50);
+    const lim = Math.min(parseInt(limit as string) || 20, config.leaderboard.maxSize);
 
     let users;
     if (subject && typeof subject === 'string') {
@@ -55,16 +55,9 @@ router.get('/', async (req: Request, res: Response): Promise<void> => {
  * GET /api/leaderboard/me
  * 获取当前用户的排名（需要 token）
  */
-router.get('/me', async (req: Request, res: Response): Promise<void> => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) {
-    res.status(401).json({ error: '未授权' });
-    return;
-  }
+router.get('/me', authMiddleware, async (req: AuthRequest, res: Response): Promise<void> => {
   try {
-    const token = authHeader.replace('Bearer ', '');
-    const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
-    const user = await User.findById(decoded.userId).lean();
+    const user = await User.findById(req.userId).lean();
     if (!user) {
       res.status(404).json({ error: '用户不存在' });
       return;
@@ -86,8 +79,9 @@ router.get('/me', async (req: Request, res: Response): Promise<void> => {
       totalScore: user.totalScore,
       subjects: user.subjects,
     });
-  } catch {
-    res.status(401).json({ error: 'Token无效' });
+  } catch (err) {
+    console.error('个人排名查询错误:', err);
+    res.status(500).json({ error: '服务器内部错误' });
   }
 });
 

@@ -122,8 +122,9 @@ const Quiz: React.FC = () => {
   useEffect(() => {
     if (status !== 'REVEAL') return;
 
-    // 生命为 0 → 游戏结束
-    if (lives <= 0) {
+    // 答错时 LOSE_LIFE 尚未生效，需预判下一帧的 lives 值
+    const nextLives = lastResult && !lastResult.correct ? lives - 1 : lives;
+    if (nextLives <= 0) {
       setTimeout(() => {
         dispatch({ type: 'FINISH_GAME', payload: { ...lastResult, eliminated: true, totalScore: score } });
         Taro.redirectTo({ url: '/pages/result/index' });

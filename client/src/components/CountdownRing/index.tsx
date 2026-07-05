@@ -39,9 +39,14 @@ const CountdownRing: React.FC<CountdownRingProps> = ({
         const cy = size / 2;
         const r = (size - strokeWidth) / 2;
         const startAngle = -Math.PI / 2;
-        const progress = remaining / total;
+        const progress = total > 0 ? remaining / total : 0;
         const endAngle = startAngle + Math.PI * 2 * progress;
-        const isUrgent = remaining <= 3;
+        // 颜色渐变：绿色(#10b981) → 红色(#f97060)
+        const t = 1 - progress; // 0=满时间, 1=耗尽
+        const red = Math.round(16 + 233 * t);
+        const green = Math.round(185 - 73 * t);
+        const blue = Math.round(129 - 33 * t);
+        const progressColor = `rgb(${red}, ${green}, ${blue})`;
 
         // 清除
         ctx.clearRect(0, 0, size, size);
@@ -58,14 +63,14 @@ const CountdownRing: React.FC<CountdownRingProps> = ({
         // 进度弧线
         ctx.beginPath();
         ctx.arc(cx, cy, r, startAngle, endAngle);
-        ctx.strokeStyle = isUrgent ? '#f97060' : accentColor;
+        ctx.strokeStyle = progressColor;
         ctx.lineWidth = strokeWidth;
         ctx.lineCap = 'round';
         ctx.stroke();
 
-        // 数字（带缩放动画）
-        ctx.fillStyle = isUrgent ? '#f97060' : '#1e1b4b';
-        ctx.font = `extrabold ${size * 0.28}px sans-serif`;
+        // 数字
+        ctx.fillStyle = progressColor;
+        ctx.font = `800 ${size * 0.45}px sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(String(Math.ceil(remaining)), cx, cy);

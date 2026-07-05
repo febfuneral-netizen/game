@@ -1,62 +1,1562 @@
 [
-  {"subject":"chinese","difficulty":1,"text":"「床前明月光」的下一句是？","options":[{"id":"A","text":"疑是地上霜"},{"id":"B","text":"举头望明月"},{"id":"C","text":"低头思故乡"},{"id":"D","text":"春眠不觉晓"}],"correctId":"A","explanation":"「床前明月光，疑是地上霜」出自李白《静夜思》"},
-  {"subject":"chinese","difficulty":1,"text":"「春眠不觉晓」的下一句是？","options":[{"id":"A","text":"处处闻啼鸟"},{"id":"B","text":"花落知多少"},{"id":"C","text":"夜来风雨声"},{"id":"D","text":"床前明月光"}],"correctId":"A","explanation":"「春眠不觉晓，处处闻啼鸟」出自孟浩然《春晓》"},
-  {"subject":"chinese","difficulty":1,"text":"「欲穷千里目」的下一句是？","options":[{"id":"A","text":"更上一层楼"},{"id":"B","text":"黄河入海流"},{"id":"C","text":"白日依山尽"},{"id":"D","text":"春风不度关"}],"correctId":"A","explanation":"「欲穷千里目，更上一层楼」出自王之涣《登鹳雀楼》"},
-  {"subject":"chinese","difficulty":2,"text":"《西游记》的作者是谁？","options":[{"id":"A","text":"罗贯中"},{"id":"B","text":"吴承恩"},{"id":"C","text":"施耐庵"},{"id":"D","text":"曹雪芹"}],"correctId":"B","explanation":"《西游记》的作者是明代小说家吴承恩"},
-  {"subject":"chinese","difficulty":2,"text":"「但愿人长久，千里共婵娟」出自谁的作品？","options":[{"id":"A","text":"李白"},{"id":"B","text":"苏轼"},{"id":"C","text":"辛弃疾"},{"id":"D","text":"李清照"}],"correctId":"B","explanation":"出自苏轼《水调歌头·明月几时有》"},
-  {"subject":"chinese","difficulty":2,"text":"「不以物喜，不以己悲」出自哪篇文章？","options":[{"id":"A","text":"《醉翁亭记》"},{"id":"B","text":"《岳阳楼记》"},{"id":"C","text":"《滕王阁序》"},{"id":"D","text":"《桃花源记》"}],"correctId":"B","explanation":"出自范仲淹《岳阳楼记》"},
-  {"subject":"chinese","difficulty":3,"text":"「落霞与孤鹜齐飞」的下一句是？","options":[{"id":"A","text":"秋水共长天一色"},{"id":"B","text":"渔舟唱晚响穷彭蠡之滨"},{"id":"C","text":"雁阵惊寒声断衡阳之浦"},{"id":"D","text":"潦水尽而寒潭清"}],"correctId":"A","explanation":"出自王勃《滕王阁序》"},
-  {"subject":"chinese","difficulty":3,"text":"《史记》的作者是？","options":[{"id":"A","text":"班固"},{"id":"B","text":"司马迁"},{"id":"C","text":"司马光"},{"id":"D","text":"左丘明"}],"correctId":"B","explanation":"《史记》是中国第一部纪传体通史，作者司马迁"},
-  {"subject":"chinese","difficulty":3,"text":"「人生自古谁无死」的下一句是？","options":[{"id":"A","text":"留取丹心照汗青"},{"id":"B","text":"忽闻岸上踏歌声"},{"id":"C","text":"每逢佳节倍思亲"},{"id":"D","text":"一片冰心在玉壶"}],"correctId":"A","explanation":"出自文天祥《过零丁洋》"},
-  {"subject":"chinese","difficulty":3,"text":"「学而时习之」出自哪部经典？","options":[{"id":"A","text":"《孟子》"},{"id":"B","text":"《大学》"},{"id":"C","text":"《论语》"},{"id":"D","text":"《中庸》"}],"correctId":"C","explanation":"出自《论语·学而》"},
-  {"subject":"math","difficulty":1,"text":"3 + 5 = ?","options":[{"id":"A","text":"7"},{"id":"B","text":"8"},{"id":"C","text":"9"},{"id":"D","text":"10"}],"correctId":"B","explanation":"3 + 5 = 8"},
-  {"subject":"math","difficulty":1,"text":"12 - 7 = ?","options":[{"id":"A","text":"4"},{"id":"B","text":"5"},{"id":"C","text":"6"},{"id":"D","text":"7"}],"correctId":"B","explanation":"12 - 7 = 5"},
-  {"subject":"math","difficulty":1,"text":"4 × 6 = ?","options":[{"id":"A","text":"20"},{"id":"B","text":"24"},{"id":"C","text":"28"},{"id":"D","text":"30"}],"correctId":"B","explanation":"4 × 6 = 24"},
-  {"subject":"math","difficulty":2,"text":"一个圆的半径是3，面积是多少？(π取3.14)","options":[{"id":"A","text":"18.84"},{"id":"B","text":"28.26"},{"id":"C","text":"31.4"},{"id":"D","text":"9.42"}],"correctId":"B","explanation":"圆面积 = πr² = 3.14 × 3² = 28.26"},
-  {"subject":"math","difficulty":2,"text":"一个长方形的长是8，宽是5，周长是多少？","options":[{"id":"A","text":"13"},{"id":"B","text":"26"},{"id":"C","text":"40"},{"id":"D","text":"20"}],"correctId":"B","explanation":"周长 = 2×(长+宽) = 2×(8+5) = 26"},
-  {"subject":"math","difficulty":2,"text":"解方程：2x + 4 = 12，x = ?","options":[{"id":"A","text":"3"},{"id":"B","text":"4"},{"id":"C","text":"5"},{"id":"D","text":"6"}],"correctId":"B","explanation":"2x = 8，x = 4"},
-  {"subject":"math","difficulty":3,"text":"sin 30° = ?","options":[{"id":"A","text":"0"},{"id":"B","text":"0.5"},{"id":"C","text":"√2/2"},{"id":"D","text":"1"}],"correctId":"B","explanation":"sin 30° = 0.5 = 1/2"},
-  {"subject":"math","difficulty":3,"text":"如果一个数的平方是64，这个数是？","options":[{"id":"A","text":"6"},{"id":"B","text":"7"},{"id":"C","text":"8"},{"id":"D","text":"9"}],"correctId":"C","explanation":"8² = 64，(-8)² = 64，所以答案是8或-8，选正8"},
-  {"subject":"math","difficulty":3,"text":"已知 a = 3，b = 4，a² + b² = ?","options":[{"id":"A","text":"7"},{"id":"B","text":"12"},{"id":"C","text":"25"},{"id":"D","text":"49"}],"correctId":"C","explanation":"a² + b² = 9 + 16 = 25"},
-  {"subject":"math","difficulty":3,"text":"函数 y = 2x + 1 的图像经过哪些象限？","options":[{"id":"A","text":"一、二、三象限"},{"id":"B","text":"一、三、四象限"},{"id":"C","text":"二、三、四象限"},{"id":"D","text":"一、二、四象限"}],"correctId":"A","explanation":"斜率2>0，截距1>0，所以经过一、二、三象限"},
-  {"subject":"english","difficulty":1,"text":"「apple」的中文意思是？","options":[{"id":"A","text":"香蕉"},{"id":"B","text":"苹果"},{"id":"C","text":"橘子"},{"id":"D","text":"葡萄"}],"correctId":"B","explanation":"apple 的中文意思是苹果"},
-  {"subject":"english","difficulty":1,"text":"「red」的中文意思是？","options":[{"id":"A","text":"蓝色"},{"id":"B","text":"红色"},{"id":"C","text":"绿色"},{"id":"D","text":"黄色"}],"correctId":"B","explanation":"red 的中文意思是红色"},
-  {"subject":"english","difficulty":1,"text":"「cat」的中文意思是？","options":[{"id":"A","text":"狗"},{"id":"B","text":"猫"},{"id":"C","text":"鸟"},{"id":"D","text":"鱼"}],"correctId":"B","explanation":"cat 的中文意思是猫"},
-  {"subject":"english","difficulty":2,"text":"She ___ to school every day.","options":[{"id":"A","text":"go"},{"id":"B","text":"goes"},{"id":"C","text":"going"},{"id":"D","text":"went"}],"correctId":"B","explanation":"第三人称单数用 goes"},
-  {"subject":"english","difficulty":2,"text":"What ___ you doing now?","options":[{"id":"A","text":"are"},{"id":"B","text":"is"},{"id":"C","text":"do"},{"id":"D","text":"does"}],"correctId":"A","explanation":"现在进行时：What are you doing?"},
-  {"subject":"english","difficulty":2,"text":"This is ___ interesting book.","options":[{"id":"A","text":"a"},{"id":"B","text":"an"},{"id":"C","text":"the"},{"id":"D","text":"your"}],"correctId":"B","explanation":"interesting 以元音开头，用 an"},
-  {"subject":"english","difficulty":3,"text":"If I ___ you, I would study harder.","options":[{"id":"A","text":"am"},{"id":"B","text":"was"},{"id":"C","text":"were"},{"id":"D","text":"be"}],"correctId":"C","explanation":"虚拟语气中，无论主语是谁，be 动词都用 were"},
-  {"subject":"english","difficulty":3,"text":"The book ___ on the table is mine.","options":[{"id":"A","text":"lay"},{"id":"B","text":"lying"},{"id":"C","text":"lain"},{"id":"D","text":"layed"}],"correctId":"B","explanation":"现在分词 lying 作定语，表示正在躺着"},
-  {"subject":"english","difficulty":3,"text":"He has lived here ___ 2010.","options":[{"id":"A","text":"for"},{"id":"B","text":"since"},{"id":"C","text":"from"},{"id":"D","text":"in"}],"correctId":"B","explanation":"since + 时间点，for + 时间段"},
-  {"subject":"english","difficulty":3,"text":"Which word is a synonym of 'happy'?","options":[{"id":"A","text":"Sad"},{"id":"B","text":"Angry"},{"id":"C","text":"Joyful"},{"id":"D","text":"Tired"}],"correctId":"C","explanation":"joyful 是 happy 的同义词，意为快乐的"},
-  {"subject":"science","difficulty":1,"text":"水的化学式是？","options":[{"id":"A","text":"CO2"},{"id":"B","text":"H2O"},{"id":"C","text":"O2"},{"id":"D","text":"NaCl"}],"correctId":"B","explanation":"水的化学式是 H2O，由两个氢原子和一个氧原子组成"},
-  {"subject":"science","difficulty":1,"text":"植物通过什么过程制造养分？","options":[{"id":"A","text":"呼吸作用"},{"id":"B","text":"光合作用"},{"id":"C","text":"蒸腾作用"},{"id":"D","text":"吸收作用"}],"correctId":"B","explanation":"植物通过光合作用利用阳光、水和二氧化碳制造养分"},
-  {"subject":"science","difficulty":1,"text":"人体最大的器官是？","options":[{"id":"A","text":"心脏"},{"id":"B","text":"肝脏"},{"id":"C","text":"皮肤"},{"id":"D","text":"大脑"}],"correctId":"C","explanation":"皮肤是人体最大的器官"},
-  {"subject":"science","difficulty":2,"text":"DNA的全称是？","options":[{"id":"A","text":"脱氧核糖核酸"},{"id":"B","text":"核糖核酸"},{"id":"C","text":"蛋白质"},{"id":"D","text":"氨基酸"}],"correctId":"A","explanation":"DNA全称是脱氧核糖核酸（Deoxyribonucleic Acid）"},
-  {"subject":"science","difficulty":2,"text":"地球绕太阳公转一圈需要多长时间？","options":[{"id":"A","text":"24小时"},{"id":"B","text":"一个月"},{"id":"C","text":"半年"},{"id":"D","text":"一年"}],"correctId":"D","explanation":"地球公转周期是一年（约365天）"},
-  {"subject":"science","difficulty":2,"text":"光在真空中的速度约是多少？","options":[{"id":"A","text":"30万公里/秒"},{"id":"B","text":"30万公里/小时"},{"id":"C","text":"300公里/秒"},{"id":"D","text":"3000公里/秒"}],"correctId":"A","explanation":"光在真空中的速度约为30万公里/秒"},
-  {"subject":"science","difficulty":3,"text":"元素周期表中，原子序数为1的元素是？","options":[{"id":"A","text":"氦"},{"id":"B","text":"氢"},{"id":"C","text":"氧"},{"id":"D","text":"碳"}],"correctId":"B","explanation":"氢（H）的原子序数为1"},
-  {"subject":"science","difficulty":3,"text":"牛顿第一定律又叫什么？","options":[{"id":"A","text":"万有引力定律"},{"id":"B","text":"惯性定律"},{"id":"C","text":"加速度定律"},{"id":"D","text":"作用力与反作用力定律"}],"correctId":"B","explanation":"牛顿第一定律即惯性定律"},
-  {"subject":"science","difficulty":3,"text":"人体有多少对染色体？","options":[{"id":"A","text":"22对"},{"id":"B","text":"23对"},{"id":"C","text":"24对"},{"id":"D","text":"25对"}],"correctId":"B","explanation":"人体有23对染色体（46条）"},
-  {"subject":"science","difficulty":3,"text":"酸性溶液的pH值范围是？","options":[{"id":"A","text":"大于7"},{"id":"B","text":"等于7"},{"id":"C","text":"小于7"},{"id":"D","text":"等于0"}],"correctId":"C","explanation":"酸性溶液pH<7，碱性pH>7，中性pH=7"},
-  {"subject":"history","difficulty":1,"text":"「烽火戏诸侯」的主人公是？","options":[{"id":"A","text":"周幽王"},{"id":"B","text":"秦始皇"},{"id":"C","text":"汉武帝"},{"id":"D","text":"唐太宗"}],"correctId":"A","explanation":"「烽火戏诸侯」的主人公是周幽王"},
-  {"subject":"history","difficulty":1,"text":"中国第一个皇帝是？","options":[{"id":"A","text":"周武王"},{"id":"B","text":"秦始皇"},{"id":"C","text":"汉武帝"},{"id":"D","text":"唐太宗"}],"correctId":"B","explanation":"秦始皇嬴政是中国第一个皇帝"},
-  {"subject":"history","difficulty":1,"text":"长城是哪位皇帝时期开始大规模修建的？","options":[{"id":"A","text":"秦始皇"},{"id":"B","text":"汉武帝"},{"id":"C","text":"唐太宗"},{"id":"D","text":"康熙帝"}],"correctId":"A","explanation":"秦始皇时期开始大规模修建长城"},
-  {"subject":"history","difficulty":2,"text":"「破釜沉舟」出自哪位历史人物？","options":[{"id":"A","text":"刘邦"},{"id":"B","text":"项羽"},{"id":"C","text":"诸葛亮"},{"id":"D","text":"岳飞"}],"correctId":"B","explanation":"「破釜沉舟」出自项羽巨鹿之战的典故"},
-  {"subject":"history","difficulty":2,"text":"唐朝的都城是？","options":[{"id":"A","text":"洛阳"},{"id":"B","text":"长安"},{"id":"C","text":"北京"},{"id":"D","text":"南京"}],"correctId":"B","explanation":"唐朝的都城是长安（今西安）"},
-  {"subject":"history","difficulty":2,"text":"《资治通鉴》的作者是？","options":[{"id":"A","text":"司马迁"},{"id":"B","text":"司马光"},{"id":"C","text":"班固"},{"id":"D","text":"左丘明"}],"correctId":"B","explanation":"《资治通鉴》是司马光主编的编年体通史"},
-  {"subject":"history","difficulty":3,"text":"鸦片战争发生在哪一年？","options":[{"id":"A","text":"1839年"},{"id":"B","text":"1840年"},{"id":"C","text":"1842年"},{"id":"D","text":"1860年"}],"correctId":"B","explanation":"鸦片战争爆发于1840年"},
-  {"subject":"history","difficulty":3,"text":"辛亥革命发生在哪一年？","options":[{"id":"A","text":"1898年"},{"id":"B","text":"1911年"},{"id":"C","text":"1919年"},{"id":"D","text":"1921年"}],"correctId":"B","explanation":"辛亥革命发生在1911年"},
-  {"subject":"history","difficulty":3,"text":"「焚书坑儒」是哪位皇帝的行为？","options":[{"id":"A","text":"汉武帝"},{"id":"B","text":"秦始皇"},{"id":"C","text":"隋炀帝"},{"id":"D","text":"唐太宗"}],"correctId":"B","explanation":"「焚书坑儒」是秦始皇统一六国后推行的文化政策"},
-  {"subject":"history","difficulty":3,"text":"中国共产党的成立年份是？","options":[{"id":"A","text":"1919年"},{"id":"B","text":"1921年"},{"id":"C","text":"1927年"},{"id":"D","text":"1949年"}],"correctId":"B","explanation":"中国共产党成立于1921年"},
-  {"subject":"geography","difficulty":1,"text":"中国有多少个省（不含直辖市、自治区）？","options":[{"id":"A","text":"21个"},{"id":"B","text":"23个"},{"id":"C","text":"25个"},{"id":"D","text":"27个"}],"correctId":"B","explanation":"中国共有23个省"},
-  {"subject":"geography","difficulty":1,"text":"世界上最长的河流是？","options":[{"id":"A","text":"长江"},{"id":"B","text":"尼罗河"},{"id":"C","text":"亚马逊河"},{"id":"D","text":"黄河"}],"correctId":"B","explanation":"尼罗河是世界上最长的河流，全长约6650公里"},
-  {"subject":"geography","difficulty":1,"text":"中国的首都是？","options":[{"id":"A","text":"上海"},{"id":"B","text":"广州"},{"id":"C","text":"北京"},{"id":"D","text":"深圳"}],"correctId":"C","explanation":"中国的首都是北京"},
-  {"subject":"geography","difficulty":2,"text":"地球自转一圈需要多长时间？","options":[{"id":"A","text":"24小时"},{"id":"B","text":"365天"},{"id":"C","text":"12小时"},{"id":"D","text":"30天"}],"correctId":"A","explanation":"地球自转一圈是一天，约24小时"},
-  {"subject":"geography","difficulty":2,"text":"中国最大的沙漠是？","options":[{"id":"A","text":"戈壁沙漠"},{"id":"B","text":"塔克拉玛干沙漠"},{"id":"C","text":"巴丹吉林沙漠"},{"id":"D","text":"库布齐沙漠"}],"correctId":"B","explanation":"塔克拉玛干沙漠是中国最大的沙漠"},
-  {"subject":"geography","difficulty":2,"text":"赤道穿过的大洲不包括？","options":[{"id":"A","text":"南美洲"},{"id":"B","text":"非洲"},{"id":"C","text":"亚洲"},{"id":"D","text":"欧洲"}],"correctId":"D","explanation":"赤道不穿过欧洲"},
-  {"subject":"geography","difficulty":3,"text":"海拔最高的山峰是？","options":[{"id":"A","text":"乔戈里峰"},{"id":"B","text":"珠穆朗玛峰"},{"id":"C","text":"干城章嘉峰"},{"id":"D","text":"洛子峰"}],"correctId":"B","explanation":"珠穆朗玛峰海拔约8848米，是世界最高峰"},
-  {"subject":"geography","difficulty":3,"text":"中国最大的咸水湖是？","options":[{"id":"A","text":"洞庭湖"},{"id":"B","text":"鄱阳湖"},{"id":"C","text":"青海湖"},{"id":"D","text":"太湖"}],"correctId":"C","explanation":"青海湖是中国最大的咸水湖"},
-  {"subject":"geography","difficulty":3,"text":"地球上陆地面积占总面积的百分比约是多少？","options":[{"id":"A","text":"29%"},{"id":"B","text":"50%"},{"id":"C","text":"71%"},{"id":"D","text":"90%"}],"correctId":"A","explanation":"地球表面约71%是海洋，约29%是陆地"},
-  {"subject":"geography","difficulty":3,"text":"中国最大的岛屿是？","options":[{"id":"A","text":"海南岛"},{"id":"B","text":"台湾岛"},{"id":"C","text":"崇明岛"},{"id":"D","text":"舟山岛"}],"correctId":"B","explanation":"台湾岛是中国最大的岛屿"}
+  {
+    "subject": "chinese",
+    "difficulty": 1,
+    "text": "「床前明月光」的下一句是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "疑是地上霜"
+      },
+      {
+        "id": "B",
+        "text": "举头望明月"
+      },
+      {
+        "id": "C",
+        "text": "低头思故乡"
+      },
+      {
+        "id": "D",
+        "text": "春眠不觉晓"
+      }
+    ],
+    "correctId": "A",
+    "explanation": "「床前明月光，疑是地上霜」出自李白《静夜思》",
+    "chapter": 1
+  },
+  {
+    "subject": "chinese",
+    "difficulty": 1,
+    "text": "「春眠不觉晓」的下一句是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "处处闻啼鸟"
+      },
+      {
+        "id": "B",
+        "text": "花落知多少"
+      },
+      {
+        "id": "C",
+        "text": "夜来风雨声"
+      },
+      {
+        "id": "D",
+        "text": "床前明月光"
+      }
+    ],
+    "correctId": "A",
+    "explanation": "「春眠不觉晓，处处闻啼鸟」出自孟浩然《春晓》",
+    "chapter": 1
+  },
+  {
+    "subject": "chinese",
+    "difficulty": 1,
+    "text": "「欲穷千里目」的下一句是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "更上一层楼"
+      },
+      {
+        "id": "B",
+        "text": "黄河入海流"
+      },
+      {
+        "id": "C",
+        "text": "白日依山尽"
+      },
+      {
+        "id": "D",
+        "text": "春风不度关"
+      }
+    ],
+    "correctId": "A",
+    "explanation": "「欲穷千里目，更上一层楼」出自王之涣《登鹳雀楼》",
+    "chapter": 2
+  },
+  {
+    "subject": "chinese",
+    "difficulty": 2,
+    "text": "《西游记》的作者是谁？",
+    "options": [
+      {
+        "id": "A",
+        "text": "罗贯中"
+      },
+      {
+        "id": "B",
+        "text": "吴承恩"
+      },
+      {
+        "id": "C",
+        "text": "施耐庵"
+      },
+      {
+        "id": "D",
+        "text": "曹雪芹"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "《西游记》的作者是明代小说家吴承恩",
+    "chapter": 2
+  },
+  {
+    "subject": "chinese",
+    "difficulty": 2,
+    "text": "「但愿人长久，千里共婵娟」出自谁的作品？",
+    "options": [
+      {
+        "id": "A",
+        "text": "李白"
+      },
+      {
+        "id": "B",
+        "text": "苏轼"
+      },
+      {
+        "id": "C",
+        "text": "辛弃疾"
+      },
+      {
+        "id": "D",
+        "text": "李清照"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "出自苏轼《水调歌头·明月几时有》",
+    "chapter": 3
+  },
+  {
+    "subject": "chinese",
+    "difficulty": 2,
+    "text": "「不以物喜，不以己悲」出自哪篇文章？",
+    "options": [
+      {
+        "id": "A",
+        "text": "《醉翁亭记》"
+      },
+      {
+        "id": "B",
+        "text": "《岳阳楼记》"
+      },
+      {
+        "id": "C",
+        "text": "《滕王阁序》"
+      },
+      {
+        "id": "D",
+        "text": "《桃花源记》"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "出自范仲淹《岳阳楼记》",
+    "chapter": 3
+  },
+  {
+    "subject": "chinese",
+    "difficulty": 3,
+    "text": "「落霞与孤鹜齐飞」的下一句是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "秋水共长天一色"
+      },
+      {
+        "id": "B",
+        "text": "渔舟唱晚响穷彭蠡之滨"
+      },
+      {
+        "id": "C",
+        "text": "雁阵惊寒声断衡阳之浦"
+      },
+      {
+        "id": "D",
+        "text": "潦水尽而寒潭清"
+      }
+    ],
+    "correctId": "A",
+    "explanation": "出自王勃《滕王阁序》",
+    "chapter": 4
+  },
+  {
+    "subject": "chinese",
+    "difficulty": 3,
+    "text": "《史记》的作者是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "班固"
+      },
+      {
+        "id": "B",
+        "text": "司马迁"
+      },
+      {
+        "id": "C",
+        "text": "司马光"
+      },
+      {
+        "id": "D",
+        "text": "左丘明"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "《史记》是中国第一部纪传体通史，作者司马迁",
+    "chapter": 4
+  },
+  {
+    "subject": "chinese",
+    "difficulty": 3,
+    "text": "「人生自古谁无死」的下一句是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "留取丹心照汗青"
+      },
+      {
+        "id": "B",
+        "text": "忽闻岸上踏歌声"
+      },
+      {
+        "id": "C",
+        "text": "每逢佳节倍思亲"
+      },
+      {
+        "id": "D",
+        "text": "一片冰心在玉壶"
+      }
+    ],
+    "correctId": "A",
+    "explanation": "出自文天祥《过零丁洋》",
+    "chapter": 5
+  },
+  {
+    "subject": "chinese",
+    "difficulty": 3,
+    "text": "「学而时习之」出自哪部经典？",
+    "options": [
+      {
+        "id": "A",
+        "text": "《孟子》"
+      },
+      {
+        "id": "B",
+        "text": "《大学》"
+      },
+      {
+        "id": "C",
+        "text": "《论语》"
+      },
+      {
+        "id": "D",
+        "text": "《中庸》"
+      }
+    ],
+    "correctId": "C",
+    "explanation": "出自《论语·学而》",
+    "chapter": 5
+  },
+  {
+    "subject": "math",
+    "difficulty": 1,
+    "text": "3 + 5 = ?",
+    "options": [
+      {
+        "id": "A",
+        "text": "7"
+      },
+      {
+        "id": "B",
+        "text": "8"
+      },
+      {
+        "id": "C",
+        "text": "9"
+      },
+      {
+        "id": "D",
+        "text": "10"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "3 + 5 = 8",
+    "chapter": 1
+  },
+  {
+    "subject": "math",
+    "difficulty": 1,
+    "text": "12 - 7 = ?",
+    "options": [
+      {
+        "id": "A",
+        "text": "4"
+      },
+      {
+        "id": "B",
+        "text": "5"
+      },
+      {
+        "id": "C",
+        "text": "6"
+      },
+      {
+        "id": "D",
+        "text": "7"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "12 - 7 = 5",
+    "chapter": 1
+  },
+  {
+    "subject": "math",
+    "difficulty": 1,
+    "text": "4 × 6 = ?",
+    "options": [
+      {
+        "id": "A",
+        "text": "20"
+      },
+      {
+        "id": "B",
+        "text": "24"
+      },
+      {
+        "id": "C",
+        "text": "28"
+      },
+      {
+        "id": "D",
+        "text": "30"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "4 × 6 = 24",
+    "chapter": 2
+  },
+  {
+    "subject": "math",
+    "difficulty": 2,
+    "text": "一个圆的半径是3，面积是多少？(π取3.14)",
+    "options": [
+      {
+        "id": "A",
+        "text": "18.84"
+      },
+      {
+        "id": "B",
+        "text": "28.26"
+      },
+      {
+        "id": "C",
+        "text": "31.4"
+      },
+      {
+        "id": "D",
+        "text": "9.42"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "圆面积 = πr² = 3.14 × 3² = 28.26",
+    "chapter": 2
+  },
+  {
+    "subject": "math",
+    "difficulty": 2,
+    "text": "一个长方形的长是8，宽是5，周长是多少？",
+    "options": [
+      {
+        "id": "A",
+        "text": "13"
+      },
+      {
+        "id": "B",
+        "text": "26"
+      },
+      {
+        "id": "C",
+        "text": "40"
+      },
+      {
+        "id": "D",
+        "text": "20"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "周长 = 2×(长+宽) = 2×(8+5) = 26",
+    "chapter": 3
+  },
+  {
+    "subject": "math",
+    "difficulty": 2,
+    "text": "解方程：2x + 4 = 12，x = ?",
+    "options": [
+      {
+        "id": "A",
+        "text": "3"
+      },
+      {
+        "id": "B",
+        "text": "4"
+      },
+      {
+        "id": "C",
+        "text": "5"
+      },
+      {
+        "id": "D",
+        "text": "6"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "2x = 8，x = 4",
+    "chapter": 3
+  },
+  {
+    "subject": "math",
+    "difficulty": 3,
+    "text": "sin 30° = ?",
+    "options": [
+      {
+        "id": "A",
+        "text": "0"
+      },
+      {
+        "id": "B",
+        "text": "0.5"
+      },
+      {
+        "id": "C",
+        "text": "√2/2"
+      },
+      {
+        "id": "D",
+        "text": "1"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "sin 30° = 0.5 = 1/2",
+    "chapter": 4
+  },
+  {
+    "subject": "math",
+    "difficulty": 3,
+    "text": "如果一个数的平方是64，这个数是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "6"
+      },
+      {
+        "id": "B",
+        "text": "7"
+      },
+      {
+        "id": "C",
+        "text": "8"
+      },
+      {
+        "id": "D",
+        "text": "9"
+      }
+    ],
+    "correctId": "C",
+    "explanation": "8² = 64，(-8)² = 64，所以答案是8或-8，选正8",
+    "chapter": 4
+  },
+  {
+    "subject": "math",
+    "difficulty": 3,
+    "text": "已知 a = 3，b = 4，a² + b² = ?",
+    "options": [
+      {
+        "id": "A",
+        "text": "7"
+      },
+      {
+        "id": "B",
+        "text": "12"
+      },
+      {
+        "id": "C",
+        "text": "25"
+      },
+      {
+        "id": "D",
+        "text": "49"
+      }
+    ],
+    "correctId": "C",
+    "explanation": "a² + b² = 9 + 16 = 25",
+    "chapter": 5
+  },
+  {
+    "subject": "math",
+    "difficulty": 3,
+    "text": "函数 y = 2x + 1 的图像经过哪些象限？",
+    "options": [
+      {
+        "id": "A",
+        "text": "一、二、三象限"
+      },
+      {
+        "id": "B",
+        "text": "一、三、四象限"
+      },
+      {
+        "id": "C",
+        "text": "二、三、四象限"
+      },
+      {
+        "id": "D",
+        "text": "一、二、四象限"
+      }
+    ],
+    "correctId": "A",
+    "explanation": "斜率2>0，截距1>0，所以经过一、二、三象限",
+    "chapter": 5
+  },
+  {
+    "subject": "english",
+    "difficulty": 1,
+    "text": "「apple」的中文意思是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "香蕉"
+      },
+      {
+        "id": "B",
+        "text": "苹果"
+      },
+      {
+        "id": "C",
+        "text": "橘子"
+      },
+      {
+        "id": "D",
+        "text": "葡萄"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "apple 的中文意思是苹果",
+    "chapter": 1
+  },
+  {
+    "subject": "english",
+    "difficulty": 1,
+    "text": "「red」的中文意思是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "蓝色"
+      },
+      {
+        "id": "B",
+        "text": "红色"
+      },
+      {
+        "id": "C",
+        "text": "绿色"
+      },
+      {
+        "id": "D",
+        "text": "黄色"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "red 的中文意思是红色",
+    "chapter": 1
+  },
+  {
+    "subject": "english",
+    "difficulty": 1,
+    "text": "「cat」的中文意思是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "狗"
+      },
+      {
+        "id": "B",
+        "text": "猫"
+      },
+      {
+        "id": "C",
+        "text": "鸟"
+      },
+      {
+        "id": "D",
+        "text": "鱼"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "cat 的中文意思是猫",
+    "chapter": 2
+  },
+  {
+    "subject": "english",
+    "difficulty": 2,
+    "text": "She ___ to school every day.",
+    "options": [
+      {
+        "id": "A",
+        "text": "go"
+      },
+      {
+        "id": "B",
+        "text": "goes"
+      },
+      {
+        "id": "C",
+        "text": "going"
+      },
+      {
+        "id": "D",
+        "text": "went"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "第三人称单数用 goes",
+    "chapter": 2
+  },
+  {
+    "subject": "english",
+    "difficulty": 2,
+    "text": "What ___ you doing now?",
+    "options": [
+      {
+        "id": "A",
+        "text": "are"
+      },
+      {
+        "id": "B",
+        "text": "is"
+      },
+      {
+        "id": "C",
+        "text": "do"
+      },
+      {
+        "id": "D",
+        "text": "does"
+      }
+    ],
+    "correctId": "A",
+    "explanation": "现在进行时：What are you doing?",
+    "chapter": 3
+  },
+  {
+    "subject": "english",
+    "difficulty": 2,
+    "text": "This is ___ interesting book.",
+    "options": [
+      {
+        "id": "A",
+        "text": "a"
+      },
+      {
+        "id": "B",
+        "text": "an"
+      },
+      {
+        "id": "C",
+        "text": "the"
+      },
+      {
+        "id": "D",
+        "text": "your"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "interesting 以元音开头，用 an",
+    "chapter": 3
+  },
+  {
+    "subject": "english",
+    "difficulty": 3,
+    "text": "If I ___ you, I would study harder.",
+    "options": [
+      {
+        "id": "A",
+        "text": "am"
+      },
+      {
+        "id": "B",
+        "text": "was"
+      },
+      {
+        "id": "C",
+        "text": "were"
+      },
+      {
+        "id": "D",
+        "text": "be"
+      }
+    ],
+    "correctId": "C",
+    "explanation": "虚拟语气中，无论主语是谁，be 动词都用 were",
+    "chapter": 4
+  },
+  {
+    "subject": "english",
+    "difficulty": 3,
+    "text": "The book ___ on the table is mine.",
+    "options": [
+      {
+        "id": "A",
+        "text": "lay"
+      },
+      {
+        "id": "B",
+        "text": "lying"
+      },
+      {
+        "id": "C",
+        "text": "lain"
+      },
+      {
+        "id": "D",
+        "text": "layed"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "现在分词 lying 作定语，表示正在躺着",
+    "chapter": 4
+  },
+  {
+    "subject": "english",
+    "difficulty": 3,
+    "text": "He has lived here ___ 2010.",
+    "options": [
+      {
+        "id": "A",
+        "text": "for"
+      },
+      {
+        "id": "B",
+        "text": "since"
+      },
+      {
+        "id": "C",
+        "text": "from"
+      },
+      {
+        "id": "D",
+        "text": "in"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "since + 时间点，for + 时间段",
+    "chapter": 5
+  },
+  {
+    "subject": "english",
+    "difficulty": 3,
+    "text": "Which word is a synonym of 'happy'?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Sad"
+      },
+      {
+        "id": "B",
+        "text": "Angry"
+      },
+      {
+        "id": "C",
+        "text": "Joyful"
+      },
+      {
+        "id": "D",
+        "text": "Tired"
+      }
+    ],
+    "correctId": "C",
+    "explanation": "joyful 是 happy 的同义词，意为快乐的",
+    "chapter": 5
+  },
+  {
+    "subject": "science",
+    "difficulty": 1,
+    "text": "水的化学式是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "CO2"
+      },
+      {
+        "id": "B",
+        "text": "H2O"
+      },
+      {
+        "id": "C",
+        "text": "O2"
+      },
+      {
+        "id": "D",
+        "text": "NaCl"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "水的化学式是 H2O，由两个氢原子和一个氧原子组成",
+    "chapter": 1
+  },
+  {
+    "subject": "science",
+    "difficulty": 1,
+    "text": "植物通过什么过程制造养分？",
+    "options": [
+      {
+        "id": "A",
+        "text": "呼吸作用"
+      },
+      {
+        "id": "B",
+        "text": "光合作用"
+      },
+      {
+        "id": "C",
+        "text": "蒸腾作用"
+      },
+      {
+        "id": "D",
+        "text": "吸收作用"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "植物通过光合作用利用阳光、水和二氧化碳制造养分",
+    "chapter": 1
+  },
+  {
+    "subject": "science",
+    "difficulty": 1,
+    "text": "人体最大的器官是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "心脏"
+      },
+      {
+        "id": "B",
+        "text": "肝脏"
+      },
+      {
+        "id": "C",
+        "text": "皮肤"
+      },
+      {
+        "id": "D",
+        "text": "大脑"
+      }
+    ],
+    "correctId": "C",
+    "explanation": "皮肤是人体最大的器官",
+    "chapter": 2
+  },
+  {
+    "subject": "science",
+    "difficulty": 2,
+    "text": "DNA的全称是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "脱氧核糖核酸"
+      },
+      {
+        "id": "B",
+        "text": "核糖核酸"
+      },
+      {
+        "id": "C",
+        "text": "蛋白质"
+      },
+      {
+        "id": "D",
+        "text": "氨基酸"
+      }
+    ],
+    "correctId": "A",
+    "explanation": "DNA全称是脱氧核糖核酸（Deoxyribonucleic Acid）",
+    "chapter": 2
+  },
+  {
+    "subject": "science",
+    "difficulty": 2,
+    "text": "地球绕太阳公转一圈需要多长时间？",
+    "options": [
+      {
+        "id": "A",
+        "text": "24小时"
+      },
+      {
+        "id": "B",
+        "text": "一个月"
+      },
+      {
+        "id": "C",
+        "text": "半年"
+      },
+      {
+        "id": "D",
+        "text": "一年"
+      }
+    ],
+    "correctId": "D",
+    "explanation": "地球公转周期是一年（约365天）",
+    "chapter": 3
+  },
+  {
+    "subject": "science",
+    "difficulty": 2,
+    "text": "光在真空中的速度约是多少？",
+    "options": [
+      {
+        "id": "A",
+        "text": "30万公里/秒"
+      },
+      {
+        "id": "B",
+        "text": "30万公里/小时"
+      },
+      {
+        "id": "C",
+        "text": "300公里/秒"
+      },
+      {
+        "id": "D",
+        "text": "3000公里/秒"
+      }
+    ],
+    "correctId": "A",
+    "explanation": "光在真空中的速度约为30万公里/秒",
+    "chapter": 3
+  },
+  {
+    "subject": "science",
+    "difficulty": 3,
+    "text": "元素周期表中，原子序数为1的元素是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "氦"
+      },
+      {
+        "id": "B",
+        "text": "氢"
+      },
+      {
+        "id": "C",
+        "text": "氧"
+      },
+      {
+        "id": "D",
+        "text": "碳"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "氢（H）的原子序数为1",
+    "chapter": 4
+  },
+  {
+    "subject": "science",
+    "difficulty": 3,
+    "text": "牛顿第一定律又叫什么？",
+    "options": [
+      {
+        "id": "A",
+        "text": "万有引力定律"
+      },
+      {
+        "id": "B",
+        "text": "惯性定律"
+      },
+      {
+        "id": "C",
+        "text": "加速度定律"
+      },
+      {
+        "id": "D",
+        "text": "作用力与反作用力定律"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "牛顿第一定律即惯性定律",
+    "chapter": 4
+  },
+  {
+    "subject": "science",
+    "difficulty": 3,
+    "text": "人体有多少对染色体？",
+    "options": [
+      {
+        "id": "A",
+        "text": "22对"
+      },
+      {
+        "id": "B",
+        "text": "23对"
+      },
+      {
+        "id": "C",
+        "text": "24对"
+      },
+      {
+        "id": "D",
+        "text": "25对"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "人体有23对染色体（46条）",
+    "chapter": 5
+  },
+  {
+    "subject": "science",
+    "difficulty": 3,
+    "text": "酸性溶液的pH值范围是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "大于7"
+      },
+      {
+        "id": "B",
+        "text": "等于7"
+      },
+      {
+        "id": "C",
+        "text": "小于7"
+      },
+      {
+        "id": "D",
+        "text": "等于0"
+      }
+    ],
+    "correctId": "C",
+    "explanation": "酸性溶液pH<7，碱性pH>7，中性pH=7",
+    "chapter": 5
+  },
+  {
+    "subject": "history",
+    "difficulty": 1,
+    "text": "「烽火戏诸侯」的主人公是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "周幽王"
+      },
+      {
+        "id": "B",
+        "text": "秦始皇"
+      },
+      {
+        "id": "C",
+        "text": "汉武帝"
+      },
+      {
+        "id": "D",
+        "text": "唐太宗"
+      }
+    ],
+    "correctId": "A",
+    "explanation": "「烽火戏诸侯」的主人公是周幽王",
+    "chapter": 1
+  },
+  {
+    "subject": "history",
+    "difficulty": 1,
+    "text": "中国第一个皇帝是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "周武王"
+      },
+      {
+        "id": "B",
+        "text": "秦始皇"
+      },
+      {
+        "id": "C",
+        "text": "汉武帝"
+      },
+      {
+        "id": "D",
+        "text": "唐太宗"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "秦始皇嬴政是中国第一个皇帝",
+    "chapter": 1
+  },
+  {
+    "subject": "history",
+    "difficulty": 1,
+    "text": "长城是哪位皇帝时期开始大规模修建的？",
+    "options": [
+      {
+        "id": "A",
+        "text": "秦始皇"
+      },
+      {
+        "id": "B",
+        "text": "汉武帝"
+      },
+      {
+        "id": "C",
+        "text": "唐太宗"
+      },
+      {
+        "id": "D",
+        "text": "康熙帝"
+      }
+    ],
+    "correctId": "A",
+    "explanation": "秦始皇时期开始大规模修建长城",
+    "chapter": 2
+  },
+  {
+    "subject": "history",
+    "difficulty": 2,
+    "text": "「破釜沉舟」出自哪位历史人物？",
+    "options": [
+      {
+        "id": "A",
+        "text": "刘邦"
+      },
+      {
+        "id": "B",
+        "text": "项羽"
+      },
+      {
+        "id": "C",
+        "text": "诸葛亮"
+      },
+      {
+        "id": "D",
+        "text": "岳飞"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "「破釜沉舟」出自项羽巨鹿之战的典故",
+    "chapter": 2
+  },
+  {
+    "subject": "history",
+    "difficulty": 2,
+    "text": "唐朝的都城是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "洛阳"
+      },
+      {
+        "id": "B",
+        "text": "长安"
+      },
+      {
+        "id": "C",
+        "text": "北京"
+      },
+      {
+        "id": "D",
+        "text": "南京"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "唐朝的都城是长安（今西安）",
+    "chapter": 3
+  },
+  {
+    "subject": "history",
+    "difficulty": 2,
+    "text": "《资治通鉴》的作者是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "司马迁"
+      },
+      {
+        "id": "B",
+        "text": "司马光"
+      },
+      {
+        "id": "C",
+        "text": "班固"
+      },
+      {
+        "id": "D",
+        "text": "左丘明"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "《资治通鉴》是司马光主编的编年体通史",
+    "chapter": 3
+  },
+  {
+    "subject": "history",
+    "difficulty": 3,
+    "text": "鸦片战争发生在哪一年？",
+    "options": [
+      {
+        "id": "A",
+        "text": "1839年"
+      },
+      {
+        "id": "B",
+        "text": "1840年"
+      },
+      {
+        "id": "C",
+        "text": "1842年"
+      },
+      {
+        "id": "D",
+        "text": "1860年"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "鸦片战争爆发于1840年",
+    "chapter": 4
+  },
+  {
+    "subject": "history",
+    "difficulty": 3,
+    "text": "辛亥革命发生在哪一年？",
+    "options": [
+      {
+        "id": "A",
+        "text": "1898年"
+      },
+      {
+        "id": "B",
+        "text": "1911年"
+      },
+      {
+        "id": "C",
+        "text": "1919年"
+      },
+      {
+        "id": "D",
+        "text": "1921年"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "辛亥革命发生在1911年",
+    "chapter": 4
+  },
+  {
+    "subject": "history",
+    "difficulty": 3,
+    "text": "「焚书坑儒」是哪位皇帝的行为？",
+    "options": [
+      {
+        "id": "A",
+        "text": "汉武帝"
+      },
+      {
+        "id": "B",
+        "text": "秦始皇"
+      },
+      {
+        "id": "C",
+        "text": "隋炀帝"
+      },
+      {
+        "id": "D",
+        "text": "唐太宗"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "「焚书坑儒」是秦始皇统一六国后推行的文化政策",
+    "chapter": 5
+  },
+  {
+    "subject": "history",
+    "difficulty": 3,
+    "text": "中国共产党的成立年份是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "1919年"
+      },
+      {
+        "id": "B",
+        "text": "1921年"
+      },
+      {
+        "id": "C",
+        "text": "1927年"
+      },
+      {
+        "id": "D",
+        "text": "1949年"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "中国共产党成立于1921年",
+    "chapter": 5
+  },
+  {
+    "subject": "geography",
+    "difficulty": 1,
+    "text": "中国有多少个省（不含直辖市、自治区）？",
+    "options": [
+      {
+        "id": "A",
+        "text": "21个"
+      },
+      {
+        "id": "B",
+        "text": "23个"
+      },
+      {
+        "id": "C",
+        "text": "25个"
+      },
+      {
+        "id": "D",
+        "text": "27个"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "中国共有23个省",
+    "chapter": 1
+  },
+  {
+    "subject": "geography",
+    "difficulty": 1,
+    "text": "世界上最长的河流是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "长江"
+      },
+      {
+        "id": "B",
+        "text": "尼罗河"
+      },
+      {
+        "id": "C",
+        "text": "亚马逊河"
+      },
+      {
+        "id": "D",
+        "text": "黄河"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "尼罗河是世界上最长的河流，全长约6650公里",
+    "chapter": 1
+  },
+  {
+    "subject": "geography",
+    "difficulty": 1,
+    "text": "中国的首都是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "上海"
+      },
+      {
+        "id": "B",
+        "text": "广州"
+      },
+      {
+        "id": "C",
+        "text": "北京"
+      },
+      {
+        "id": "D",
+        "text": "深圳"
+      }
+    ],
+    "correctId": "C",
+    "explanation": "中国的首都是北京",
+    "chapter": 2
+  },
+  {
+    "subject": "geography",
+    "difficulty": 2,
+    "text": "地球自转一圈需要多长时间？",
+    "options": [
+      {
+        "id": "A",
+        "text": "24小时"
+      },
+      {
+        "id": "B",
+        "text": "365天"
+      },
+      {
+        "id": "C",
+        "text": "12小时"
+      },
+      {
+        "id": "D",
+        "text": "30天"
+      }
+    ],
+    "correctId": "A",
+    "explanation": "地球自转一圈是一天，约24小时",
+    "chapter": 2
+  },
+  {
+    "subject": "geography",
+    "difficulty": 2,
+    "text": "中国最大的沙漠是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "戈壁沙漠"
+      },
+      {
+        "id": "B",
+        "text": "塔克拉玛干沙漠"
+      },
+      {
+        "id": "C",
+        "text": "巴丹吉林沙漠"
+      },
+      {
+        "id": "D",
+        "text": "库布齐沙漠"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "塔克拉玛干沙漠是中国最大的沙漠",
+    "chapter": 3
+  },
+  {
+    "subject": "geography",
+    "difficulty": 2,
+    "text": "赤道穿过的大洲不包括？",
+    "options": [
+      {
+        "id": "A",
+        "text": "南美洲"
+      },
+      {
+        "id": "B",
+        "text": "非洲"
+      },
+      {
+        "id": "C",
+        "text": "亚洲"
+      },
+      {
+        "id": "D",
+        "text": "欧洲"
+      }
+    ],
+    "correctId": "D",
+    "explanation": "赤道不穿过欧洲",
+    "chapter": 3
+  },
+  {
+    "subject": "geography",
+    "difficulty": 3,
+    "text": "海拔最高的山峰是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "乔戈里峰"
+      },
+      {
+        "id": "B",
+        "text": "珠穆朗玛峰"
+      },
+      {
+        "id": "C",
+        "text": "干城章嘉峰"
+      },
+      {
+        "id": "D",
+        "text": "洛子峰"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "珠穆朗玛峰海拔约8848米，是世界最高峰",
+    "chapter": 4
+  },
+  {
+    "subject": "geography",
+    "difficulty": 3,
+    "text": "中国最大的咸水湖是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "洞庭湖"
+      },
+      {
+        "id": "B",
+        "text": "鄱阳湖"
+      },
+      {
+        "id": "C",
+        "text": "青海湖"
+      },
+      {
+        "id": "D",
+        "text": "太湖"
+      }
+    ],
+    "correctId": "C",
+    "explanation": "青海湖是中国最大的咸水湖",
+    "chapter": 4
+  },
+  {
+    "subject": "geography",
+    "difficulty": 3,
+    "text": "地球上陆地面积占总面积的百分比约是多少？",
+    "options": [
+      {
+        "id": "A",
+        "text": "29%"
+      },
+      {
+        "id": "B",
+        "text": "50%"
+      },
+      {
+        "id": "C",
+        "text": "71%"
+      },
+      {
+        "id": "D",
+        "text": "90%"
+      }
+    ],
+    "correctId": "A",
+    "explanation": "地球表面约71%是海洋，约29%是陆地",
+    "chapter": 5
+  },
+  {
+    "subject": "geography",
+    "difficulty": 3,
+    "text": "中国最大的岛屿是？",
+    "options": [
+      {
+        "id": "A",
+        "text": "海南岛"
+      },
+      {
+        "id": "B",
+        "text": "台湾岛"
+      },
+      {
+        "id": "C",
+        "text": "崇明岛"
+      },
+      {
+        "id": "D",
+        "text": "舟山岛"
+      }
+    ],
+    "correctId": "B",
+    "explanation": "台湾岛是中国最大的岛屿",
+    "chapter": 5
+  }
 ]

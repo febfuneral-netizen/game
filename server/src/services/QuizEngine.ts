@@ -1,5 +1,5 @@
 import GameRecord from '../models/GameRecord';
-import User from '../models/User';
+import User, { ISubjectProgress } from '../models/User';
 import Question from '../models/Question';
 
 interface SubmitResult {
@@ -110,23 +110,49 @@ async function updateUserProgress(gameRecord: any) {
     if (!user) return;
 
     const subject = gameRecord.subject;
-    const current = user.subjects.get(subject);
-    const oldBest = current?.bestScore || 0;
+    const current = (user.subjects as any).get?.(subject)
+      || (user.subjects instanceof Map ? user.subjects.get(subject) : (user as any).subjects?.[subject]);
+    const currentData: ISubjectProgress | undefined = current && typeof current === 'object' ? current : undefined;
+    const oldBest = currentData?.bestScore || 0;
+
+    const isChapterCleared = gameRecord.correctCount >= 8;
+    // 章节通关后 currentChapter 自动 +1（最多到5），否则保持当前章节
+    const playedChapter = gameRecord.chapter || 1;
+    const existingChapter = currentData?.currentChapter || 1;
+    // 只有玩的章节刚好是当前章节时，通关才推进
+    const nextChapter = isChapterCleared && playedChapter === existingChapter
+      ? Math.min(existingChapter + 1, 5)
+      : Math.max(existingChapter, playedChapter);
 
     if (gameRecord.score > oldBest) {
       user.totalScore += (gameRecord.score - oldBest);
-      user.subjects.set(subject, {
-        progress: gameRecord.correctCount >= 8 ? 'cleared' : 'ongoing',
+      (user.subjects as any).set(subject, {
+        progress: isChapterCleared ? 'cleared' : 'ongoing',
         bestScore: gameRecord.score,
+        currentChapter: nextChapter,
       });
     } else {
-      const newProgress = current?.progress === 'cleared' ? 'cleared'
-        : gameRecord.correctCount >= 8 ? 'cleared'
+      const newProgress = currentData?.progress === 'cleared' ? 'cleared'
+        : isChapterCleared ? 'cleared'
         : gameRecord.correctCount > 0 ? 'ongoing' : 'newbie';
-      if (newProgress !== current?.progress) {
-        user.subjects.set(subject, { progress: newProgress, bestScore: oldBest });
+      if (newProgress !== currentData?.progress || nextChapter !== existingChapter) {
+        (user.subjects as any).set(subject, { progress: newProgress, bestScore: oldBest, currentChapter: nextChapter });
+      } else {
+        (user.subjects as any).set(subject, { progress: currentData?.progress || 'newbie', bestScore: oldBest, currentChapter: nextChapter });
       }
     }
+
+    // 记录已答题目ID（去重用）
+    const answeredIds: any[] = user.answeredQuestionIds || [];
+    const questionIdsInGame = (gameRecord.questions || [])
+      .map((q: any) => q.questionId?.toString())
+      .filter(Boolean);
+    for (const qid of questionIdsInGame) {
+      if (!answeredIds.some((id: any) => id.toString() === qid)) {
+        answeredIds.push(qid);
+      }
+    }
+    user.answeredQuestionIds = answeredIds;
 
     await user.save();
   } catch (err) {

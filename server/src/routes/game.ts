@@ -17,32 +17,34 @@ router.use(authMiddleware as any);
  * 返回10题（不含 correctId）
  */
 router.post('/start', async (req: AuthRequest, res: Response): Promise<void> => {
-  const { subject } = req.body;
+  const { subject, chapter, difficulty } = req.body;
   if (!subject) {
     res.status(400).json({ error: '请选择学科' });
     return;
   }
 
   try {
-    const questions = await pickQuestions(subject);
+    const questions = await pickQuestions(subject, chapter, req.userId);
     if (questions.length < 10) {
       res.status(400).json({ error: '题库不足，请联系管理员' });
       return;
     }
 
-    // 创建游戏记录
+    // 创建游戏记录（含章节和难度）
     const gameRecord = new GameRecord({
       userId: req.userId,
       subject,
+      chapter: chapter || 1,
+      difficulty: difficulty || 'normal',
       mode: 'single',
-      status: 'eliminated', // 初始状态，答完题后更新
+      status: 'eliminated',
       totalQuestions: 10,
       answeredCount: 0,
       correctCount: 0,
       score: 0,
       questions: [],
       startedAt: new Date(),
-      finishedAt: new Date(), // 会更新
+      finishedAt: new Date(),
     });
     await gameRecord.save();
 
@@ -148,3 +150,34 @@ router.get('/result/:gameId', async (req: AuthRequest, res: Response): Promise<v
 });
 
 export default router;
+
+/**
+ * GET /api/game/recent
+ * 获取当前用户最近游戏记录（最多10条）
+ */
+router.get('/recent', authMiddleware as any, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const records = await GameRecord.find({ userId: req.userId })
+      .sort({ startedAt: -1 })
+      .limit(10)
+      .select('subject chapter difficulty status correctCount totalQuestions score startedAt')
+      .lean();
+
+    res.json({
+      list: records.map((r: any) => ({
+        id: r._id,
+        subject: r.subject,
+        chapter: r.chapter,
+        difficulty: r.difficulty,
+        status: r.status,
+        correctCount: r.correctCount,
+        totalQuestions: r.totalQuestions,
+        score: r.score,
+        startedAt: r.startedAt,
+      })),
+    });
+  } catch (err) {
+    console.error('获取最近记录错误:', err);
+    res.status(500).json({ error: '服务器内部错误' });
+  }
+});

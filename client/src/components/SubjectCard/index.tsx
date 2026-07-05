@@ -27,14 +27,12 @@ const SubjectCard: React.FC<SubjectCardProps> = ({
   const [pressed, setPressed] = useState(false);
   const label = SUBJECT_CONFIG[subjectKey]?.label || subjectKey;
   const pct = progress?.progress || 'newbie';
-  const isLocked = pct === 'locked';
 
-  // 状态元信息
-  const statusMeta = {
+  // 状态元信息（学科不再有 locked，全部可进入）
+  const statusMeta: Record<string, { label: string; icon: string }> = {
     newbie:  { label: '新手上路', icon: '◎' },
     ongoing: { label: '继续学习', icon: '▶' },
     cleared: { label: '已通关',   icon: '✓' },
-    locked:  { label: '未解锁',   icon: '🔒' },
   };
   const meta = statusMeta[pct] || statusMeta.newbie;
 
@@ -48,17 +46,17 @@ const SubjectCard: React.FC<SubjectCardProps> = ({
     geography: '🧭',
   };
 
-  const handleTouchStart = () => !isLocked && setPressed(true);
+  const handleTouchStart = () => setPressed(true);
   const handleTouchEnd = () => setPressed(false);
 
   return (
     <View
-      className={`subject-card ${isLocked ? 'subject-card--locked' : ''} ${pressed ? 'subject-card--pressed' : ''}`}
+      className={`subject-card ${pressed ? 'subject-card--pressed' : ''}`}
       style={{
         background: gradient,
         boxShadow: `0 12px 28px ${shadowColor}`,
       }}
-      onClick={isLocked ? undefined : onClick}
+      onClick={onClick}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       onTouchCancel={handleTouchEnd}
@@ -78,13 +76,13 @@ const SubjectCard: React.FC<SubjectCardProps> = ({
           {/* 学科信息 */}
           <View className='subject-card__info'>
             <View className='subject-card__level-row'>
-              <Text className='subject-card__level'>level {level}</Text>
+              <Text className='subject-card__level'>第 {(progress?.currentChapter || 1)} 章</Text>
               <Text className='subject-card__dot'>·</Text>
               <Text className='subject-card__status-label'>{meta.label}</Text>
             </View>
             <Text className='subject-card__name'>{label}</Text>
             <Text className='subject-card__desc'>
-              {isLocked ? '尚未解锁' : `${questionCount} 题 · 点击挑战`}
+              {questionCount} 题 · 点击挑战
             </Text>
           </View>
         </View>
@@ -96,13 +94,6 @@ const SubjectCard: React.FC<SubjectCardProps> = ({
           </View>
         </View>
       </View>
-
-      {/* 锁定覆盖层 */}
-      {isLocked && (
-        <View className='subject-card__locked-overlay'>
-          <Text className='subject-card__locked-icon'>🔒</Text>
-        </View>
-      )}
     </View>
   );
 };

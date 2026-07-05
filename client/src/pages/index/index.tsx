@@ -27,6 +27,14 @@ const Index: React.FC = () => {
     Taro.navigateTo({ url: '/pages/subject-prep/index' });
   };
 
+  const handleShopClick = () => {
+    Taro.navigateTo({ url: '/pages/shop/index' });
+  };
+
+  const handleBackpackClick = () => {
+    Taro.navigateTo({ url: '/pages/backpack/index' });
+  };
+
   const handleBattleClick = () => {
     Taro.switchTab({ url: '/pages/challenge/index' });
   };
@@ -36,6 +44,10 @@ const Index: React.FC = () => {
       await doLogin();
     }
     Taro.switchTab({ url: '/pages/profile/index' });
+  };
+
+  const handleActivityClick = () => {
+    Taro.navigateTo({ url: '/pages/activity/index' });
   };
 
   // 学科渐变色
@@ -48,10 +60,6 @@ const Index: React.FC = () => {
     geography: { gradient: 'linear-gradient(135deg, #6366f1, #a5b4fc)', shadow: 'rgba(99,102,241,0.4)' },
   };
 
-  const subjectLevels: Record<string, number> = {
-    chinese: 1, math: 2, english: 3, science: 1, history: 2, geography: 1,
-  };
-
   return (
     <View className='index-page'>
       <View className='index-page__inner'>
@@ -62,45 +70,100 @@ const Index: React.FC = () => {
             <Text className='index-page__title-en'>Let's Play</Text>
           </View>
           <View className='index-page__header-right'>
-            <View className='index-page__battle-btn' onClick={handleBattleClick}>
-              <Text className='index-page__battle-icon'>⚔️</Text>
-              <Text className='index-page__battle-text'>对战</Text>
+            <View className='index-page__icon-btn' onClick={handleBattleClick}>
+              <View className='index-page__icon-img index-page__icon-img--battle'>
+                <View className='index-page__icon-sword index-page__icon-sword--left' />
+                <View className='index-page__icon-sword index-page__icon-sword--right' />
+              </View>
             </View>
-            <View className='index-page__profile-btn' onClick={handleProfileClick}>
-              <Text className='index-page__profile-avatar'>
-                {user?.nickname?.charAt(0) || '?'}
-              </Text>
+            <View className='index-page__icon-btn' onClick={handleShopClick}>
+              <View className='index-page__icon-img index-page__icon-img--shop' />
+            </View>
+            <View className='index-page__icon-btn' onClick={handleBackpackClick}>
+              <View className='index-page__icon-img index-page__icon-img--backpack'>
+                <View className='index-page__icon-cube-face index-page__icon-cube-face--front' />
+                <View className='index-page__icon-cube-face index-page__icon-cube-face--top' />
+                <View className='index-page__icon-cube-face index-page__icon-cube-face--right' />
+              </View>
+            </View>
+            <View className='index-page__icon-btn' onClick={handleProfileClick}>
+              <View className='index-page__icon-img index-page__icon-img--profile' />
             </View>
           </View>
         </View>
 
-        {/* 竖向卡片列表 */}
-        <View className='index-page__list'>
-          {SUBJECT_ORDER.map((key, index) => {
-            const grad = subjectGradients[key] || subjectGradients.math;
-            const level = subjectLevels[key] || 1;
-            return (
-              <View
-                key={key}
-                className='index-page__card-wrapper'
-                style={{
-                  opacity: mounted ? 1 : 0,
-                  transform: mounted ? 'translateY(0) scale(1)' : 'translateY(28px) scale(0.95)',
-                  transition: `all 0.45s cubic-bezier(0.23, 1, 0.32, 1) ${0.06 + index * 0.06}s`,
-                }}
-              >
-                <SubjectCard
-                  subjectKey={key}
-                  gradient={grad.gradient}
-                  shadowColor={grad.shadow}
-                  level={level}
-                  progress={user?.subjects?.[key]}
-                  questionCount={questionCount[key] || 0}
-                  onClick={() => handleSubjectClick(key)}
-                />
+        {/* 称号条 */}
+      {user?.title && (
+        <View className='index-page__title-bar'>
+          <Text className='index-page__title-emoji'>{user.title.emoji}</Text>
+          <Text className='index-page__title-name' style={{ color: user.title.color }}>
+            {user.title.name}
+          </Text>
+        </View>
+      )}
+
+      {/* 竖向卡片列表 */}
+      <View className='index-page__list'>
+        {SUBJECT_ORDER.map((key, index) => {
+          const grad = subjectGradients[key] || subjectGradients.math;
+          return (
+            <View
+              key={key}
+              className='index-page__card-wrapper'
+              style={{
+                opacity: mounted ? 1 : 0,
+                transform: mounted ? 'translateY(0) scale(1)' : 'translateY(28px) scale(0.95)',
+                transition: `all 0.45s cubic-bezier(0.23, 1, 0.32, 1) ${0.06 + index * 0.06}s`,
+              }}
+            >
+              <SubjectCard
+                subjectKey={key}
+                gradient={grad.gradient}
+                shadowColor={grad.shadow}
+                progress={user?.subjects?.[key]}
+                questionCount={questionCount[key] || 0}
+                onClick={() => handleSubjectClick(key)}
+              />
+            </View>
+          );
+        })}
+
+        {/* 活动卡片 */}
+        <View
+          className='index-page__card-wrapper'
+          style={{
+            opacity: mounted ? 1 : 0,
+            transform: mounted ? 'translateY(0) scale(1)' : 'translateY(28px) scale(0.95)',
+            transition: `all 0.45s cubic-bezier(0.23, 1, 0.32, 1) ${0.06 + 6 * 0.06}s`,
+          }}
+        >
+          <View
+            className='index-page__activity-card'
+            onClick={handleActivityClick}
+          >
+            <View className='index-page__activity-shine' />
+            <View className='index-page__activity-bg-dot index-page__activity-bg-dot--1' />
+            <View className='index-page__activity-bg-dot index-page__activity-bg-dot--2' />
+            <View className='index-page__activity-bg-dot index-page__activity-bg-dot--3' />
+            <View className='index-page__activity-content'>
+              <View className='index-page__activity-left'>
+                <View className='index-page__activity-badge'>
+                  <Text className='index-page__activity-badge-text'>HOT</Text>
+                </View>
+                <Text className='index-page__activity-name'>精彩活动</Text>
+                <Text className='index-page__activity-desc'>
+                  限时挑战 · 专属奖励 · 排行榜
+                </Text>
               </View>
-            );
-          })}
+              <View className='index-page__activity-right'>
+                <View className='index-page__activity-icon-wrap'>
+                  <Text className='index-page__activity-icon'>🎪</Text>
+                </View>
+                <Text className='index-page__activity-arrow'>→</Text>
+              </View>
+            </View>
+          </View>
+        </View>
         </View>
       </View>
 

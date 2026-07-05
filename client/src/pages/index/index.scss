@@ -56,51 +56,174 @@
     margin-top: 4px;
   }
 
-  // 对战按钮
-  &__battle-btn {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 8px 14px;
-    border-radius: 20px;
-    background: linear-gradient(135deg, #f97060, #a259ff);
-    box-shadow: 0 4px 16px rgba(162, 89, 255, 0.35);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-
-    &:active {
-      transform: scale(0.95);
-      box-shadow: 0 2px 10px rgba(162, 89, 255, 0.25);
-    }
-  }
-  &__battle-icon {
-    font-size: 16px;
-  }
-  &__battle-text {
-    font-size: 12px;
-    font-weight: 700;
-    color: #fff;
-  }
-
-  // 头像按钮
-  &__profile-btn {
-    width: 36px;
-    height: 36px;
+  // 顶部快速入口图标（参考图：白色圆形 + 彩色线形图标）
+  &__icon-btn {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background: #fff;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.15s ease;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 
     &:active {
       transform: scale(0.92);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     }
   }
-  &__profile-avatar {
-    font-size: 16px;
+
+  &__icon-img {
+    width: 22px;
+    height: 22px;
+    position: relative;
+  }
+
+  // 对战：交叉双剑
+  &__icon-sword {
+    position: absolute;
+    width: 2px;
+    height: 20px;
+    background: #f97060;
+    border-radius: 1px;
+    left: 50%;
+    top: 50%;
+    margin-left: -1px;
+    margin-top: -10px;
+
+    &--left { transform: rotate(45deg); }
+    &--right { transform: rotate(-45deg); }
+
+    // 护手
+    &::before {
+      content: '';
+      position: absolute;
+      width: 7px;
+      height: 2px;
+      background: #f97060;
+      border-radius: 1px;
+      left: 50%;
+      bottom: 2px;
+      transform: translateX(-50%);
+    }
+  }
+
+  // 商店：购物袋
+  &__icon-img--shop {
+    &::before {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 11px;
+      border: 2px solid #a259ff;
+      border-radius: 0 0 4px 4px;
+      border-top: none;
+      left: 50%;
+      top: 9px;
+      transform: translateX(-50%);
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 5px;
+      border: 2px solid #a259ff;
+      border-bottom: none;
+      border-radius: 4px 4px 0 0;
+      left: 50%;
+      top: 2px;
+      transform: translateX(-50%);
+    }
+  }
+
+  // 背包：立体方块
+  &__icon-img--backpack {
+    position: relative;
+    width: 22px;
+    height: 22px;
+  }
+  &__icon-cube-face {
+    position: absolute;
+    border: 2px solid #10b981;
+    border-radius: 1px;
+
+    &--front {
+      width: 9px;
+      height: 9px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -20%);
+    }
+    &--top {
+      width: 9px;
+      height: 5px;
+      left: 50%;
+      top: 50%;
+      border-bottom: none;
+      transform: translate(-50%, -140%) skewX(-30deg);
+      transform-origin: bottom center;
+    }
+    &--right {
+      width: 5px;
+      height: 9px;
+      left: 50%;
+      top: 50%;
+      border-left: none;
+      transform: translate(20%, -20%) skewY(-30deg);
+      transform-origin: left center;
+    }
+  }
+
+  // 我的：人物头像
+  &__icon-img--profile {
+    &::before {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border: 2px solid #6b7280;
+      border-radius: 50%;
+      left: 50%;
+      top: 2px;
+      transform: translateX(-50%);
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 8px;
+      border: 2px solid #6b7280;
+      border-bottom: none;
+      border-radius: 8px 8px 0 0;
+      left: 50%;
+      bottom: 1px;
+      transform: translateX(-50%);
+    }
+  }
+
+
+
+  // ─── 称号条 ───
+  &__title-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    margin-bottom: 14px;
+    background: rgba(255,255,255,0.85);
+    border-radius: 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    flex-shrink: 0;
+  }
+  &__title-emoji {
+    font-size: 22px;
+  }
+  &__title-name {
+    font-size: 26px;
     font-weight: 700;
-    color: #6b7280;
+    letter-spacing: 1px;
   }
 
   // ─── 竖向卡片列表 ───
@@ -120,6 +243,137 @@
     opacity: 0;
     transition: all 0.5s ease;
     flex-shrink: 0;
+  }
+
+  // ─── 活动卡片 ───
+  &__activity-card {
+    position: relative;
+    border-radius: 16px;
+    padding: 20px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ff6b9d 0%, #c44dff 50%, #667eea 100%);
+    box-shadow: 0 12px 28px rgba(196, 77, 255, 0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+    &:active {
+      transform: scale(0.97) !important;
+      box-shadow: 0 8px 20px rgba(196, 77, 255, 0.25);
+    }
+  }
+
+  &__activity-shine {
+    position: absolute;
+    top: -50%;
+    left: -30%;
+    width: 120%;
+    height: 180%;
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.1) 45%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.1) 55%,
+      transparent 60%
+    );
+    transform: rotate(-15deg);
+    pointer-events: none;
+  }
+
+  &__activity-bg-dot {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    pointer-events: none;
+
+    &--1 {
+      width: 80px;
+      height: 80px;
+      top: -20px;
+      right: -20px;
+    }
+    &--2 {
+      width: 50px;
+      height: 50px;
+      bottom: 10px;
+      right: 60px;
+    }
+    &--3 {
+      width: 30px;
+      height: 30px;
+      bottom: 30px;
+      left: 20px;
+    }
+  }
+
+  &__activity-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__activity-left {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__activity-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    padding: 2px 10px;
+    margin-bottom: 8px;
+  }
+
+  &__activity-badge-text {
+    font-size: 11px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+
+  &__activity-name {
+    display: block;
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  &__activity-desc {
+    display: block;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+  }
+
+  &__activity-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  &__activity-icon-wrap {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__activity-icon {
+    font-size: 28px;
+  }
+
+  &__activity-arrow {
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 600;
   }
 
   // ─── 底部 ───

@@ -1,20 +1,44 @@
-import React, { createContext, useContext, useReducer, useEffect, useState } from 'react';
+import React, { createContext, useContext, useReducer, useEffect, useState, useCallback } from 'react';
 import Taro from '@tarojs/taro';
-import { login, getProfile, getQuestionCount, startGame, submitAnswer } from '../services/api';
+import { login, getProfile, getQuestionCount, startGame, submitAnswer, setOnAuthExpired, clearToken } from '../services/api';
 
 // ===== 状态类型 =====
 export type GameStatus = 'HOME' | 'READY' | 'QUESTION' | 'REVEAL' | 'SETTLE_WIN' | 'SETTLE_LOSE';
 export type Difficulty = 'easy' | 'normal' | 'hard';
 
 export interface SubjectProgress {
-  progress: 'locked' | 'newbie' | 'ongoing' | 'cleared';
+  progress: 'newbie' | 'ongoing' | 'cleared';
   bestScore: number;
   currentChapter: number; // 当前章节（1-based）
 }
 
+export interface UserTitle {
+  name: string;
+  emoji: string;
+  color: string;
+}
+
+export interface Achievement {
+  id: string;
+  name: string;
+  desc: string;
+  emoji: string;
+  unlocked: boolean;
+}
+
+export interface UserProfile {
+  id: string;
+  nickname: string;
+  avatar: string;
+  totalScore: number;
+  subjects: Record<string, SubjectProgress>;
+  title: UserTitle;
+  achievements: Achievement[];
+}
+
 export interface GameState {
   status: GameStatus;
-  user: { id: string; nickname: string; avatar: string; totalScore: number; subjects: Record<string, SubjectProgress> } | null;
+  user: UserProfile | null;
   currentSubject: string | null;
   currentChapter: number;      // 当前章节 1~5
   difficulty: Difficulty;
@@ -139,6 +163,8 @@ interface GameContextType {
   state: GameState;
   dispatch: React.Dispatch<Action>;
   doLogin: () => Promise<void>;
+  doLogout: () => void;
+  isLoggingIn: boolean;
   doStartGame: (subject: string, chapter?: number, difficulty?: Difficulty) => Promise<void>;
   doSubmitAnswer: (optionId: string, timeSpent: number) => Promise<void>;
 }
@@ -147,35 +173,73 @@ const GameContext = createContext<GameContextType | null>(null);
 
 export function GameProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(gameReducer, initialState);
-  const [loading, setLoading] = useState(false);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-  // 自动登录
+  // 自动登录 + session 检查
   useEffect(() => {
-    const token = Taro.getStorageSync('token');
-    if (token) {
-      getProfile().then((user) => {
-        dispatch({ type: 'SET_USER', payload: user });
-      }).catch(() => {
-        Taro.removeStorageSync('token');
+    const tryRestoreSession = () => {
+      const token = Taro.getStorageSync('token');
+      if (!token) return;
+
+      // 先检查微信 session 是否有效
+      Taro.checkSession({
+        success: () => {
+          // session 有效，用 token 恢复用户态
+          getProfile().then((user) => {
+            dispatch({ type: 'SET_USER', payload: user });
+          }).catch(() => {
+            // token 自身无效，清除
+            clearToken();
+          });
+        },
+        fail: () => {
+          // 微信 session 过期，清除 token 等用户重新登录
+          clearToken();
+          dispatch({ type: 'SET_USER', payload: null });
+        },
       });
-    }
-    // 获取题库数量
+    };
+
+    tryRestoreSession();
+
+    // 获取题库数量（无需登录态）
     getQuestionCount().then((count) => {
       dispatch({ type: 'SET_QUESTION_COUNT', payload: count });
     }).catch(() => {});
   }, []);
 
-  const doLogin = async () => {
-    setLoading(true);
+  // 注册全局 401 拦截回调
+  useEffect(() => {
+    setOnAuthExpired(() => {
+      dispatch({ type: 'SET_USER', payload: null });
+      Taro.showToast({ title: '登录已过期，请重新登录', icon: 'none', duration: 2000 });
+    });
+    return () => setOnAuthExpired(null);
+  }, []);
+
+  const doLogin = useCallback(async () => {
+    if (isLoggingIn) return; // 防重复点击
+    setIsLoggingIn(true);
     try {
       const data = await login();
       dispatch({ type: 'SET_USER', payload: data.user });
+      Taro.showToast({ title: '登录成功', icon: 'success', duration: 1500 });
     } catch (err: any) {
-      Taro.showToast({ title: err.message || '登录失败', icon: 'none' });
+      const msg = err.message || '登录失败';
+      Taro.showToast({ title: msg, icon: 'none', duration: 2000 });
+      // code 可能已被使用，清除可能残留的数据
+      clearToken();
     } finally {
-      setLoading(false);
+      setIsLoggingIn(false);
     }
-  };
+  }, [isLoggingIn]);
+
+  const doLogout = useCallback(() => {
+    clearToken();
+    dispatch({ type: 'SET_USER', payload: null });
+    dispatch({ type: 'RESET' });
+    Taro.showToast({ title: '已退出登录', icon: 'none', duration: 1500 });
+  }, []);
 
   const doStartGame = async (subject: string, chapter = 1, difficulty: Difficulty = 'normal') => {
     dispatch({ type: 'SET_DIFFICULTY', payload: difficulty });
@@ -183,15 +247,14 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
     // 先设置 READY 状态，让 3-2-1 倒计时准备就绪
     dispatch({ type: 'SELECT_SUBJECT', payload: subject });
     Taro.navigateTo({ url: '/pages/quiz/index' });
-    setLoading(true);
+    setIsLoggingIn(true); // 复用为 loading
     try {
-      const data = await startGame(subject);
-      // 题目加载完成后设置到状态中，此时 quiz 页 READY 倒计时已运行
+      const data = await startGame(subject, chapter, difficulty);
       dispatch({ type: 'START_GAME', payload: data });
     } catch (err: any) {
       Taro.showToast({ title: err.message || '开始游戏失败', icon: 'none' });
     } finally {
-      setLoading(false);
+      setIsLoggingIn(false);
     }
   };
 
@@ -207,7 +270,7 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <GameContext.Provider value={{ state, dispatch, doLogin, doStartGame, doSubmitAnswer }}>
+    <GameContext.Provider value={{ state, dispatch, doLogin, doLogout, isLoggingIn, doStartGame, doSubmitAnswer }}>
       {children}
     </GameContext.Provider>
   );
