@@ -37,7 +37,7 @@ export function clearToken(): void {
 
 // ===== 通用请求封装（自动注入 token + 401 拦截） =====
 interface RequestOptions {
-  method?: 'GET' | 'POST' | 'DELETE';
+  method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
   data?: any;
 }
 
@@ -83,6 +83,11 @@ export async function login(): Promise<{ token: string; user: any }> {
 // 获取用户资料
 export async function getProfile(): Promise<any> {
   return request('/api/user/profile');
+}
+
+// 更新用户资料（昵称等）
+export async function updateProfile(data: { nickname: string }): Promise<any> {
+  return request('/api/user/profile', { method: 'PUT', data });
 }
 
 // 开始游戏(选学科、章节、难度后调用)

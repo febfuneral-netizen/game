@@ -1,21 +1,75 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView } from '@tarojs/components';
+import { View, Text, ScrollView, Input } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import { useGame } from '../../store/gameContext';
 import { SUBJECT_CONFIG, SUBJECT_ORDER, PROGRESS_COLOR, PROGRESS_LABEL } from '../../utils/constants';
-import { getMyRank, getGlobalStats } from '../../services/api';
+import { getMyRank, getRecentGames, getChallengeStats, updateProfile } from '../../services/api';
 import './index.scss';
 
+const DIFFICULTY_LABEL: Record<string, string> = {
+  easy: '简单',
+  normal: '普通',
+  hard: '困难',
+};
+
+const formatRelativeTime = (isoStr: string): string => {
+  const d = new Date(isoStr);
+  const now = new Date();
+  const diffMin = Math.floor((now.getTime() - d.getTime()) / 60000);
+  if (diffMin < 1) return '刚刚';
+  if (diffMin < 60) return `${diffMin}分钟前`;
+  const diffHour = Math.floor(diffMin / 60);
+  if (diffHour < 24) return `${diffHour}小时前`;
+  const diffDay = Math.floor(diffHour / 24);
+  if (diffDay < 7) return `${diffDay}天前`;
+  const m = d.getMonth() + 1;
+  const day = d.getDate();
+  return `${m}月${day}日`;
+};
+
 const Profile: React.FC = () => {
-  const { state, doLogin, doLogout, isLoggingIn } = useGame();
+  const { state, dispatch, doLogin, doLogout, isLoggingIn } = useGame();
   const { user } = state;
   const [myRank, setMyRank] = useState<number | null>(null);
-  const [globalStats, setGlobalStats] = useState<any>(null);
+  const [recentGames, setRecentGames] = useState<any[]>([]);
+  const [streak, setStreak] = useState(0);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editNickname, setEditNickname] = useState('');
+  const [saving, setSaving] = useState(false);
+
+  const handleEditNickname = () => {
+    setEditNickname(user?.nickname || '');
+    setShowEditModal(true);
+  };
+
+  const handleSaveNickname = async () => {
+    const trimmed = editNickname.trim();
+    if (!trimmed) {
+      Taro.showToast({ title: '昵称不能为空', icon: 'none' });
+      return;
+    }
+    if (trimmed.length > 20) {
+      Taro.showToast({ title: '昵称不能超过20个字符', icon: 'none' });
+      return;
+    }
+    setSaving(true);
+    try {
+      const data = await updateProfile({ nickname: trimmed });
+      dispatch({ type: 'SET_USER', payload: data.user });
+      setShowEditModal(false);
+      Taro.showToast({ title: '昵称修改成功', icon: 'success' });
+    } catch (err: any) {
+      Taro.showToast({ title: err.message || '修改失败', icon: 'none' });
+    } finally {
+      setSaving(false);
+    }
+  };
 
   useEffect(() => {
     if (!user) return;
     getMyRank().then((data) => setMyRank(data.rank)).catch(() => {});
-    getGlobalStats().then((data) => setGlobalStats(data)).catch(() => {});
+    getRecentGames().then((data) => setRecentGames((data.list || []).slice(0, 3))).catch(() => {});
+    getChallengeStats().then((data) => setStreak(data.streak || 0)).catch(() => {});
   }, [user]);
 
   const handleLogin = async () => {
@@ -78,7 +132,12 @@ const Profile: React.FC = () => {
             </Text>
           </View>
           <View className='profile-page__user-info'>
-            <Text className='profile-page__nickname'>{user.nickname}</Text>
+            <View className='profile-page__nickname-row' onClick={handleEditNickname}>
+              <Text className='profile-page__nickname'>{user.nickname}</Text>
+              <View className='profile-page__edit-badge'>
+                <Text className='profile-page__edit-text'>修改</Text>
+              </View>
+            </View>
             {user.title && (
               <View className='profile-page__title-row'>
                 <Text className='profile-page__title-emoji'>{user.title.emoji}</Text>
@@ -99,18 +158,23 @@ const Profile: React.FC = () => {
       {/* 数据概览 */}
       <View className='profile-page__stats'>
         <View className='profile-page__stat-item'>
-          <Text className='profile-page__stat-value'>{user.totalScore}</Text>
+          <Text className='profile-page__stat-value profile-page__stat-value--purple'>{user.totalScore}</Text>
           <Text className='profile-page__stat-label'>总分</Text>
         </View>
         <View className='profile-page__stat-divider' />
         <View className='profile-page__stat-item'>
-          <Text className='profile-page__stat-value'>{clearedCount}/6</Text>
+          <Text className='profile-page__stat-value profile-page__stat-value--green'>{clearedCount}/6</Text>
           <Text className='profile-page__stat-label'>已通关</Text>
         </View>
         <View className='profile-page__stat-divider' />
         <View className='profile-page__stat-item'>
-          <Text className='profile-page__stat-value'>{globalStats?.todayGames || 0}</Text>
-          <Text className='profile-page__stat-label'>今日答题</Text>
+          <Text className='profile-page__stat-value profile-page__stat-value--orange'>{streak}</Text>
+          <Text className='profile-page__stat-label'>连续签到</Text>
+        </View>
+        <View className='profile-page__stat-divider' />
+        <View className='profile-page__stat-item'>
+          <Text className='profile-page__stat-value profile-page__stat-value--blue'>{myRank ? `#${myRank}` : '--'}</Text>
+          <Text className='profile-page__stat-label'>全球排名</Text>
         </View>
       </View>
 
@@ -181,6 +245,59 @@ const Profile: React.FC = () => {
         </View>
       )}
 
+      {/* 最近挑战 */}
+      {recentGames.length > 0 && (
+        <View className='profile-page__section'>
+          <View className='profile-page__section-header'>
+            <Text className='profile-page__section-title'>📋 最近挑战</Text>
+            <Text
+              className='profile-page__section-more'
+              onClick={() => Taro.navigateTo({ url: '/pages/challenge-history/index' })}
+            >
+              查看全部 ›
+            </Text>
+          </View>
+          <View className='profile-page__recent-list'>
+            {recentGames.map((rec) => {
+              const subjCfg = SUBJECT_CONFIG[rec.subject];
+              const accuracy = rec.totalQuestions > 0
+                ? Math.round((rec.correctCount / rec.totalQuestions) * 100)
+                : 0;
+              const accColor = accuracy >= 80 ? '#22C55E' : accuracy >= 50 ? '#F59E0B' : '#EF4444';
+              return (
+                <View key={rec.id} className='profile-page__recent-item'>
+                  <View
+                    className='profile-page__recent-icon'
+                    style={{ background: subjCfg?.gradient || 'linear-gradient(135deg, #7C5CFF, #A855F7)' }}
+                  >
+                    <Text className='profile-page__recent-icon-text'>
+                      {subjCfg?.label?.charAt(0) || '?'}
+                    </Text>
+                  </View>
+                  <View className='profile-page__recent-body'>
+                    <View className='profile-page__recent-top'>
+                      <Text className='profile-page__recent-subject'>{subjCfg?.label || rec.subject}</Text>
+                      <Text className='profile-page__recent-chapter'>第{rec.chapter}章</Text>
+                      <Text className='profile-page__recent-diff'>{DIFFICULTY_LABEL[rec.difficulty] || rec.difficulty}</Text>
+                    </View>
+                    <View className='profile-page__recent-meta'>
+                      <Text className='profile-page__recent-time'>{formatRelativeTime(rec.startedAt)}</Text>
+                      <Text className='profile-page__recent-accuracy' style={{ color: accColor }}>
+                        答对 {rec.correctCount}/{rec.totalQuestions}
+                      </Text>
+                    </View>
+                  </View>
+                  <View className='profile-page__recent-score'>
+                    <Text className='profile-page__recent-score-num'>{rec.score}</Text>
+                    <Text className='profile-page__recent-score-label'>分</Text>
+                  </View>
+                </View>
+              );
+            })}
+          </View>
+        </View>
+      )}
+
       {/* 底部菜单 */}
       <View className='profile-page__menu'>
         <View className='profile-page__menu-item' onClick={() => Taro.navigateTo({ url: '/pages/shop/index' })}>
@@ -198,12 +315,12 @@ const Profile: React.FC = () => {
           <Text className='profile-page__menu-text'>排行榜</Text>
           <Text className='profile-page__menu-arrow'>›</Text>
         </View>
-        <View className='profile-page__menu-item' onClick={() => Taro.showToast({ title: '功能开发中', icon: 'none' })}>
+        <View className='profile-page__menu-item' onClick={() => Taro.navigateTo({ url: '/pages/challenge-history/index' })}>
           <Text className='profile-page__menu-icon'>🏆</Text>
           <Text className='profile-page__menu-text'>挑战记录</Text>
           <Text className='profile-page__menu-arrow'>›</Text>
         </View>
-        <View className='profile-page__menu-item' onClick={() => Taro.showToast({ title: '功能开发中', icon: 'none' })}>
+        <View className='profile-page__menu-item' onClick={() => Taro.navigateTo({ url: '/pages/settings/index' })}>
           <Text className='profile-page__menu-icon'>⚙️</Text>
           <Text className='profile-page__menu-text'>设置</Text>
           <Text className='profile-page__menu-arrow'>›</Text>
@@ -215,6 +332,39 @@ const Profile: React.FC = () => {
         </View>
       </View>
 
+      {/* 修改昵称弹窗 */}
+      {showEditModal && (
+        <View className='profile-page__modal-mask' onClick={() => setShowEditModal(false)}>
+          <View className='profile-page__modal' onClick={(e) => e.stopPropagation()}>
+            <Text className='profile-page__modal-title'>修改昵称</Text>
+            <View className='profile-page__modal-input-wrap'>
+              <Input
+                className='profile-page__modal-input'
+                value={editNickname}
+                onInput={(e) => setEditNickname(e.detail.value)}
+                placeholder='请输入新昵称'
+                maxlength={20}
+                focus={true}
+              />
+            </View>
+            <Text className='profile-page__modal-hint'>1-20个字符</Text>
+            <View className='profile-page__modal-actions'>
+              <View
+                className='profile-page__modal-btn profile-page__modal-btn--cancel'
+                onClick={() => setShowEditModal(false)}
+              >
+                <Text>取消</Text>
+              </View>
+              <View
+                className={`profile-page__modal-btn profile-page__modal-btn--confirm${saving ? ' profile-page__modal-btn--loading' : ''}`}
+                onClick={saving ? undefined : handleSaveNickname}
+              >
+                <Text>{saving ? '保存中...' : '保存'}</Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      )}
 
     </View>
   );

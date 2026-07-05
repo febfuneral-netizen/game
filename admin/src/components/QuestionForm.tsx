@@ -132,7 +132,9 @@ const QuestionForm: React.FC<Props> = ({ open, editingQuestion, onClose, onSucce
             style={{ width: 100 }}
           >
             <Select
-              options={Array.from({ length: 5 }, (_, i) => ({
+              allowClear
+              placeholder="选择章节"
+              options={Array.from({ length: 10 }, (_, i) => ({
                 value: i + 1,
                 label: `第${i + 1}章`,
               }))}

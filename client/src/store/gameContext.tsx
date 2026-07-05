@@ -177,35 +177,48 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
 
   // 自动登录 + session 检查
   useEffect(() => {
-    const tryRestoreSession = () => {
+    let cancelled = false;
+    const tryRestoreSession = async () => {
       const token = Taro.getStorageSync('token');
       if (!token) return;
 
       // 先检查微信 session 是否有效
-      Taro.checkSession({
-        success: () => {
-          // session 有效，用 token 恢复用户态
-          getProfile().then((user) => {
+      try {
+        await Taro.checkSession();
+        // session 有效，用 token 恢复用户态
+        if (cancelled) return;
+        try {
+          const user = await getProfile();
+          if (!cancelled) {
             dispatch({ type: 'SET_USER', payload: user });
-          }).catch(() => {
-            // token 自身无效，清除
-            clearToken();
-          });
-        },
-        fail: () => {
-          // 微信 session 过期，清除 token 等用户重新登录
+          }
+        } catch {
+          // token 自身无效，清除
+          clearToken();
+          if (!cancelled) {
+            dispatch({ type: 'SET_USER', payload: null });
+          }
+        }
+      } catch {
+        // 微信 session 过期（errCode: -13001 是正常行为，静默处理）
+        if (!cancelled) {
           clearToken();
           dispatch({ type: 'SET_USER', payload: null });
-        },
-      });
+          Taro.showToast({ title: '登录已过期，请重新登录', icon: 'none', duration: 2000 });
+        }
+      }
     };
 
     tryRestoreSession();
 
     // 获取题库数量（无需登录态）
     getQuestionCount().then((count) => {
-      dispatch({ type: 'SET_QUESTION_COUNT', payload: count });
+      if (!cancelled) {
+        dispatch({ type: 'SET_QUESTION_COUNT', payload: count });
+      }
     }).catch(() => {});
+
+    return () => { cancelled = true; };
   }, []);
 
   // 注册全局 401 拦截回调

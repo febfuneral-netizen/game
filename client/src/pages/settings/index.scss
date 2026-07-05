@@ -1,0 +1,80 @@
+.settings-page {
+  min-height: 100vh;
+  background: #F8F9FC;
+  padding-top: 24px;
+  padding-bottom: 60px;
+
+  &__section {
+    margin: 0 32px 24px;
+  }
+
+  &__section-title {
+    display: block;
+    font-size: 24px;
+    font-weight: 600;
+    color: #9CA3AF;
+    margin-bottom: 12px;
+    padding-left: 4px;
+  }
+
+  &__group {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 28px 24px;
+    border-bottom: 1px solid #F3F4F6;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__item-icon {
+    font-size: 32px;
+  }
+
+  &__item-text {
+    flex: 1;
+    font-size: 28px;
+    color: #1a1a2e;
+    font-weight: 500;
+  }
+
+  &__item-value {
+    font-size: 24px;
+    color: #9CA3AF;
+    margin-right: 4px;
+  }
+
+  &__item-arrow {
+    font-size: 32px;
+    color: #9CA3AF;
+  }
+
+  &__logout-wrap {
+    margin: 48px 32px 0;
+  }
+
+  &__logout-btn {
+    height: 88px;
+    background: #fff;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  }
+
+  &__logout-text {
+    font-size: 30px;
+    font-weight: 600;
+    color: #EF4444;
+  }
+}

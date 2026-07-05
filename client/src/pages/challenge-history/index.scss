@@ -1,0 +1,165 @@
+.history-page {
+  min-height: 100vh;
+  background: #F8F9FC;
+  padding-top: 24px;
+  padding-bottom: 60px;
+
+  &__loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    font-size: 28px;
+    color: #9CA3AF;
+  }
+
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 32px;
+  }
+
+  &__empty-icon {
+    font-size: 80px;
+    margin-bottom: 24px;
+  }
+
+  &__empty-title {
+    font-size: 32px;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 8px;
+  }
+
+  &__empty-desc {
+    font-size: 24px;
+    color: #9CA3AF;
+  }
+
+  &__list {
+    padding: 0 32px;
+  }
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 20px 24px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  animation: fadeInUp 0.4s ease both;
+
+  &:nth-child(1) { animation-delay: 0s; }
+  &:nth-child(2) { animation-delay: 0.05s; }
+  &:nth-child(3) { animation-delay: 0.1s; }
+  &:nth-child(4) { animation-delay: 0.15s; }
+  &:nth-child(5) { animation-delay: 0.2s; }
+
+  &__left {
+    flex-shrink: 0;
+  }
+
+  &__icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__icon-text {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  &__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__subject {
+    font-size: 28px;
+    font-weight: 600;
+    color: #1a1a2e;
+  }
+
+  &__chapter {
+    font-size: 22px;
+    color: #7C5CFF;
+    background: rgba(124, 92, 255, 0.08);
+    padding: 2px 10px;
+    border-radius: 6px;
+  }
+
+  &__difficulty {
+    background: #F3F4F6;
+    padding: 2px 10px;
+    border-radius: 6px;
+  }
+
+  &__diff-text {
+    font-size: 20px;
+    color: #6b7280;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__time {
+    font-size: 22px;
+    color: #9CA3AF;
+  }
+
+  &__accuracy {
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  &__score {
+    flex-shrink: 0;
+    text-align: center;
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+  }
+
+  &__score-num {
+    font-size: 36px;
+    font-weight: 800;
+    color: #7C5CFF;
+  }
+
+  &__score-label {
+    font-size: 20px;
+    color: #9CA3AF;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

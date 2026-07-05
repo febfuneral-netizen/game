@@ -98,30 +98,30 @@
     gap: 5px;
   }
   &__level {
-    font-size: 11px;
+    font-size: 15px;
     font-weight: 600;
     color: rgba(255,255,255,0.85);
     letter-spacing: 0.5px;
   }
   &__dot {
-    font-size: 11px;
+    font-size: 15px;
     color: rgba(255,255,255,0.5);
   }
   &__status-label {
-    font-size: 11px;
+    font-size: 15px;
     color: rgba(255,255,255,0.65);
     font-weight: 500;
   }
 
   &__name {
-    font-size: 26px;
+    font-size: 34px;
     font-weight: 800;
     color: #fff;
     line-height: 1.1;
     text-shadow: 0 1px 3px rgba(0,0,0,0.12);
   }
   &__desc {
-    font-size: 12px;
+    font-size: 16px;
     color: rgba(255,255,255,0.6);
     font-weight: 500;
     line-height: 1.2;
@@ -150,7 +150,7 @@
     animation: cardIconFloat 2.6s ease-in-out infinite;
   }
   &__icon-emoji {
-    font-size: 38px;
+    font-size: 46px;
     line-height: 1;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
   }

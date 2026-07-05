@@ -10,6 +10,9 @@ export default defineAppConfig({
     'pages/shop/index',
     'pages/backpack/index',
     'pages/activity/index',
+    'pages/daily-challenge/index',
+    'pages/settings/index',
+    'pages/challenge-history/index',
   ],
   window: {
     backgroundTextStyle: 'light',

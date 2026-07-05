@@ -23,7 +23,7 @@ const QuestionSchema = new Schema<IQuestion>({
     required: true,
     index: true,
   },
-  chapter: { type: Number, min: 1, max: 5, default: undefined, index: true },
+  chapter: { type: Number, min: 1, max: 100, default: undefined, index: true },
   difficulty: { type: Number, enum: [1, 2, 3], required: true, index: true },
   type: { type: String, enum: ['single'], default: 'single' },
   text: { type: String, required: true },

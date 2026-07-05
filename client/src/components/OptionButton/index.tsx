@@ -17,31 +17,26 @@ const OptionButton: React.FC<OptionButtonProps> = ({
   id,
   text,
   state = 'default',
-  disabled = false,
   correctGradient,
   onClick,
 }) => {
   const handleClick = () => {
-    if (!disabled && state === 'default' && onClick) {
+    if (state === 'default' && onClick) {
       onClick(id);
     }
   };
 
-  // 根据 state 计算精确样式（匹配 QuizHall.tsx line 253-264）
-  const getStyle = (): { bg: string; textColor: string; borderColor: string } => {
+  const getStyle = () => {
     if (state === 'selected' && correctGradient) {
-      return { bg: correctGradient, textColor: '#fff', borderColor: 'transparent' };
+      return { bg: correctGradient, textColor: '#fff' };
     }
     if (state === 'correct') {
-      return { bg: 'linear-gradient(135deg, #34d399, #6ee7b7)', textColor: '#fff', borderColor: 'transparent' };
+      return { bg: 'linear-gradient(135deg, #34d399, #6ee7b7)', textColor: '#fff' };
     }
     if (state === 'wrong') {
-      return { bg: 'linear-gradient(135deg, #fb7185, #fda4af)', textColor: '#fff', borderColor: 'transparent' };
+      return { bg: 'linear-gradient(135deg, #fb7185, #fda4af)', textColor: '#fff' };
     }
-    if (state === 'disabled') {
-      return { bg: 'rgba(255,255,255,0.07)', textColor: '#9ca3af', borderColor: 'transparent' };
-    }
-    return { bg: 'rgba(255,255,255,0.1)', textColor: '#1e1b4b', borderColor: 'transparent' };
+    return { bg: 'transparent', textColor: '#1e1b4b' };
   };
 
   const { bg, textColor } = getStyle();
@@ -49,20 +44,10 @@ const OptionButton: React.FC<OptionButtonProps> = ({
   return (
     <View
       className={`option-btn option-btn--${state}`}
-      style={{
-        background: bg,
-        borderRadius: 16,
-        padding: '16px 20px',
-        transition: 'background 0.4s ease',
-      }}
+      style={{ background: bg }}
       onClick={handleClick}
     >
-      <Text style={{
-        fontSize: 18,
-        fontWeight: 600,
-        color: textColor,
-        lineHeight: '1.5',
-      }}>
+      <Text className='option-btn__text' style={{ color: textColor }}>
         {text}
       </Text>
     </View>
@@ -70,3 +55,4 @@ const OptionButton: React.FC<OptionButtonProps> = ({
 };
 
 export default OptionButton;
+

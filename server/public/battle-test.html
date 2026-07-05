@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuizBattle 对战测试</title>
+  <script src="https://cdn.jsdelivr.net/npm/socket.io-client@2.5.0/dist/socket.io.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a2e;
+      color: #eee;
+      min-height: 100vh;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+    h1 { text-align: center; color: #6366f1; margin: 20px 0; font-size: 28px; }
+    .panel-row { display: flex; gap: 20px; flex-wrap: wrap; }
+    .panel {
+      flex: 1; min-width: 400px;
+      background: #16213e;
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid #0f3460;
+    }
+    .panel h2 { color: #a855f7; margin-bottom: 15px; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+    .status { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #666; }
+    .status.online { background: #22c55e; }
+    .status.playing { background: #f59e0b; animation: pulse 0.8s infinite alternate; }
+    @keyframes pulse { from { opacity: 0.5; } to { opacity: 1; } }
+
+    .info-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .label { color: #94a3b8; font-size: 13px; }
+    .value { color: #e2e8f0; font-size: 14px; font-weight: 600; }
+    .room-code { font-family: monospace; font-size: 24px; color: #22d3ee; letter-spacing: 6px; }
+
+    button {
+      padding: 10px 20px; border: none; border-radius: 8px;
+      cursor: pointer; font-size: 14px; font-weight: 600; transition: all 0.2s;
+    }
+    button:hover { transform: translateY(-1px); opacity: 0.9; }
+    button:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .btn-primary { background: linear-gradient(135deg, #6366f1, #a855f7); color: white; }
+    .btn-secondary { background: #334155; color: #e2e8f0; }
+    .btn-danger { background: #dc2626; color: white; font-size: 12px; padding: 6px 12px; }
+    .btn-sm { padding: 4px 10px; font-size: 12px; }
+
+    .btn-group { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+
+    .question-card {
+      background: #1e293b; border-radius: 8px; padding: 16px;
+      margin: 12px 0; border: 1px solid #334155;
+    }
+    .question-text { font-size: 16px; margin-bottom: 12px; line-height: 1.5; }
+    .option {
+      display: block; width: 100%; text-align: left;
+      padding: 10px 14px; margin: 6px 0;
+      background: #0f172a; border: 2px solid #334155; border-radius: 8px;
+      color: #e2e8f0; cursor: pointer; font-size: 14px;
+      transition: all 0.15s;
+    }
+    .option:hover:not(.selected):not(:disabled) { border-color: #6366f1; background: #1e1e3f; }
+    .option.selected { border-color: #6366f1; }
+    .option.correct { border-color: #22c55e; background: #052e16; }
+    .option.wrong { border-color: #ef4444; background: #450a0a; }
+    .option:disabled { cursor: default; opacity: 0.8; }
+
+    .feedback { padding: 8px 12px; border-radius: 6px; font-size: 14px; margin: 8px 0; font-weight: 600; }
+    .feedback-correct { background: #052e16; color: #22c55e; }
+    .feedback-wrong { background: #450a0a; color: #ef4444; }
+
+    .result-card {
+      background: #1e293b; border-radius: 8px; padding: 20px; text-align: center;
+      border: 1px solid #334155;
+    }
+    .result-winner { font-size: 32px; margin: 10px 0; }
+    .result-scores { display: flex; justify-content: space-around; margin: 16px 0; }
+    .result-player { text-align: center; }
+    .result-name { font-weight: 600; font-size: 16px; }
+    .result-score { font-size: 36px; font-weight: bold; color: #22d3ee; }
+    .result-correct { font-size: 13px; color: #94a3b8; }
+
+    .opponent-bar {
+      background: #0f172a; border-radius: 8px; padding: 10px 14px;
+      margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: #94a3b8;
+    }
+    .opp-dot {
+      width: 16px; height: 16px; border-radius: 50%; background: #334155;
+      display: inline-block; margin: 0 2px;
+    }
+    .opp-dot.done { background: #22c55e; }
+    .opp-dot.progress { background: #f59e0b; animation: pulse 0.6s infinite alternate; }
+
+    .log-area {
+      max-height: 200px; overflow-y: auto; background: #0f172a;
+      border-radius: 8px; padding: 10px; font-family: monospace; font-size: 11px;
+      margin-top: 12px; line-height: 1.6;
+    }
+    .log-item { color: #64748b; }
+    .log-item.in { color: #22c55e; }
+    .log-item.out { color: #f59e0b; }
+    .log-item.err { color: #ef4444; }
+
+    input, select {
+      padding: 8px 12px; border-radius: 6px; border: 1px solid #334155;
+      background: #0f172a; color: #e2e8f0; font-size: 14px;
+    }
+    select { cursor: pointer; }
+
+    .divider { height: 1px; background: #334155; margin: 16px 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>⚔️ QuizBattle 对战测试台</h1>
+
+    <!-- 初始化区 -->
+    <div class="panel" style="margin-bottom:20px">
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <span style="color:#94a3b8">服务器:</span>
+        <input id="serverUrl" value="https://game.chaogetalks.com" style="width:280px" readonly>
+        <button class="btn-primary" onclick="fetchTokens()">🔑 获取测试Token</button>
+        <span id="tokenStatus" style="font-size:13px;color:#94a3b8"></span>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <span style="color:#94a3b8;font-size:13px">科目:</span>
+        <select id="subjectSelect">
+          <option value="math">数学</option>
+          <option value="chinese">语文</option>
+          <option value="english">英语</option>
+          <option value="science">科学</option>
+          <option value="history">历史</option>
+          <option value="geography">地理</option>
+        </select>
+        <span style="color:#94a3b8;font-size:13px">难度:</span>
+        <select id="difficultySelect">
+          <option value="easy">简单</option>
+          <option value="normal" selected>普通</option>
+          <option value="hard">困难</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="panel-row">
+      <!-- ====== 玩家1 ====== -->
+      <div class="panel" id="p1panel">
+        <h2>
+          <span class="status" id="p1status"></span>
+          🧑 玩家1 — <span id="p1name">--</span>
+        </h2>
+        <div class="info-row"><span class="label">Token:</span><span class="value" id="p1token" style="font-size:11px;word-break:break-all">--</span></div>
+        <div class="btn-group">
+          <button class="btn-primary" id="p1connect" onclick="player1Connect()">连接</button>
+          <button class="btn-primary" id="p1create" onclick="player1CreateRoom()" disabled>创建房间</button>
+          <button class="btn-secondary" id="p1join" onclick="player1JoinRoom()" disabled>加入房间</button>
+          <button class="btn-danger" id="p1leave" onclick="player1Leave()" disabled>断开</button>
+        </div>
+        <div style="margin-top:8px">
+          <input id="p1joinCode" placeholder="输入房间码" maxlength="4" style="width:100px;text-transform:uppercase;letter-spacing:4px;font-size:18px">
+        </div>
+        <div id="p1room" style="display:none;margin-top:12px">
+          <div class="info-row"><span class="label">房间码:</span><span class="room-code" id="p1roomCode">----</span></div>
+          <span class="label" style="color:#f59e0b" id="p1roomStatus"></span>
+        </div>
+
+        <!-- 游戏区 -->
+        <div id="p1game" style="display:none;margin-top:12px">
+          <div class="opponent-bar" id="p1oppbar">
+            👤 对手进度: <span id="p1oppDots"></span>
+          </div>
+          <div id="p1question"></div>
+        </div>
+
+        <!-- 结果区 -->
+        <div id="p1result" style="display:none;margin-top:12px"></div>
+
+        <!-- 日志 -->
+        <details style="margin-top:12px">
+          <summary style="cursor:pointer;color:#64748b;font-size:12px">📋 事件日志</summary>
+          <div class="log-area" id="p1log"></div>
+        </details>
+      </div>
+
+      <!-- ====== 玩家2 ====== -->
+      <div class="panel" id="p2panel">
+        <h2>
+          <span class="status" id="p2status"></span>
+          🧑 玩家2 — <span id="p2name">--</span>
+        </h2>
+        <div class="info-row"><span class="label">Token:</span><span class="value" id="p2token" style="font-size:11px;word-break:break-all">--</span></div>
+        <div class="btn-group">
+          <button class="btn-primary" id="p2connect" onclick="player2Connect()">连接</button>
+          <button class="btn-primary" id="p2create" onclick="player2CreateRoom()" disabled>创建房间</button>
+          <button class="btn-secondary" id="p2join" onclick="player2JoinRoom()" disabled>加入房间</button>
+          <button class="btn-danger" id="p2leave" onclick="player2Leave()" disabled>断开</button>
+        </div>
+        <div style="margin-top:8px">
+          <input id="p2joinCode" placeholder="输入房间码" maxlength="4" style="width:100px;text-transform:uppercase;letter-spacing:4px;font-size:18px">
+        </div>
+        <div id="p2room" style="display:none;margin-top:12px">
+          <div class="info-row"><span class="label">房间码:</span><span class="room-code" id="p2roomCode">----</span></div>
+          <span class="label" style="color:#f59e0b" id="p2roomStatus"></span>
+        </div>
+
+        <!-- 游戏区 -->
+        <div id="p2game" style="display:none;margin-top:12px">
+          <div class="opponent-bar" id="p2oppbar">
+            👤 对手进度: <span id="p2oppDots"></span>
+          </div>
+          <div id="p2question"></div>
+        </div>
+
+        <!-- 结果区 -->
+        <div id="p2result" style="display:none;margin-top:12px"></div>
+
+        <!-- 日志 -->
+        <details style="margin-top:12px">
+          <summary style="cursor:pointer;color:#64748b;font-size:12px">📋 事件日志</summary>
+          <div class="log-area" id="p2log"></div>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ==================== 全局状态 ====================
+    const SERVER = document.getElementById('serverUrl').value;
+    const players = {
+      p1: { token: null, userId: null, nickname: '', socket: null, roomCode: null, questions: [], answers: [], currentIndex: 0, selected: false },
+      p2: { token: null, userId: null, nickname: '', socket: null, roomCode: null, questions: [], answers: [], currentIndex: 0, selected: false },
+    };
+
+    const logAdd = (player, msg, type = '') => {
+      const el = document.getElementById(player + 'log');
+      const cls = type ? `log-item ${type}` : 'log-item';
+      const time = new Date().toLocaleTimeString();
+      el.innerHTML += `<div class="${cls}">[${time}] ${msg}</div>`;
+      el.scrollTop = el.scrollHeight;
+    };
+
+    // ==================== 获取 Token ====================
+    async function fetchTokens() {
+      document.getElementById('tokenStatus').textContent = '获取中...';
+      try {
+        const resp = await fetch(`${SERVER}/api/dev/token`);
+        const data = await resp.json();
+        if (data.error) { alert(data.error); document.getElementById('tokenStatus').textContent = '❌ ' + data.error; return; }
+        const us = data.users;
+        players.p1.token = us[0].token;
+        players.p1.userId = us[0].userId;
+        players.p1.nickname = us[0].nickname;
+        document.getElementById('p1token').textContent = us[0].token.slice(0, 30) + '...';
+        document.getElementById('p1name').textContent = us[0].nickname;
+
+        if (us[1]) {
+          players.p2.token = us[1].token;
+          players.p2.userId = us[1].userId;
+          players.p2.nickname = us[1].nickname;
+          document.getElementById('p2token').textContent = us[1].token.slice(0, 30) + '...';
+          document.getElementById('p2name').textContent = us[1].nickname;
+        } else {
+          // 第二个用户复用第一个（用不同browser tab测试时各取各的）
+          players.p2.token = us[0].token;
+          players.p2.userId = us[0].userId;
+          players.p2.nickname = us[0].nickname + '(副本)';
+          document.getElementById('p2token').textContent = '与玩家1相同（可开两个页面测试）';
+          document.getElementById('p2name').textContent = players.p2.nickname;
+        }
+        document.getElementById('tokenStatus').textContent = `✅ 已获取 ${us.length} 个用户`;
+        document.getElementById('p1connect').disabled = false;
+        document.getElementById('p2connect').disabled = false;
+      } catch (e) {
+        document.getElementById('tokenStatus').textContent = '❌ 获取失败: ' + e.message;
+        alert('获取Token失败，请确认服务器正常运行:\n' + e.message);
+      }
+    }
+
+    // ==================== Socket 连接 ====================
+    function createSocket(player) {
+      const p = players[player];
+      if (!p.token) { alert('请先获取Token'); return null; }
+
+      if (p.socket) {
+        try { p.socket.disconnect(); } catch(e) {}
+      }
+
+      // 连接到 /battle 命名空间
+      const socket = io(SERVER + '/battle', {
+        path: '/ws',
+        query: { token: p.token },
+        transports: ['websocket', 'polling'],
+        reconnection: false,
+        forceNew: true,
+      });
+
+      p.socket = socket;
+      bindEvents(player, socket);
+      return socket;
+    }
+
+    function bindEvents(player, socket) {
+      socket.on('connect', () => {
+        logAdd(player, '✅ Socket 已连接', 'in');
+        setStatus(player, 'online');
+        document.getElementById(player + 'connect').disabled = true;
+        document.getElementById(player + 'create').disabled = false;
+        document.getElementById(player + 'join').disabled = false;
+        document.getElementById(player + 'leave').disabled = false;
+      });
+
+      socket.on('connect_error', (err) => {
+        logAdd(player, '❌ 连接失败: ' + (err.message || JSON.stringify(err)), 'err');
+        setStatus(player, 'offline');
+      });
+
+      socket.on('disconnect', (reason) => {
+        logAdd(player, '🔌 断开: ' + reason, 'err');
+        setStatus(player, 'offline');
+      });
+
+      socket.on('hi', (data) => logAdd(player, '👋 hi: ' + JSON.stringify(data), 'in'));
+
+      socket.on('room_created', (data) => {
+        logAdd(player, '🏠 房间创建: ' + data.roomCode, 'in');
+        players[player].roomCode = data.roomCode;
+        showRoom(player, data.roomCode, '等待对手加入...');
+      });
+
+      socket.on('room_joined', (data) => {
+        logAdd(player, '🚪 加入房间: ' + data.roomCode + ' 对手: ' + (data.opponent?.nickname || '?'), 'in');
+        players[player].roomCode = data.roomCode;
+        showRoom(player, data.roomCode, '已加入，等待开始...');
+      });
+
+      socket.on('opponent_joined', (data) => {
+        logAdd(player, '👥 对手加入: ' + data.opponent.nickname, 'in');
+        if (document.getElementById(player + 'roomStatus')) {
+          document.getElementById(player + 'roomStatus').textContent = '✅ 对手已加入，即将开始...';
+        }
+      });
+
+      socket.on('start', (data) => {
+        logAdd(player, `▶ 游戏开始! ${data.totalQuestions}题, 对手: ${data.opponent?.nickname || '?'}`, 'in');
+        players[player].questions = data.questions;
+        players[player].answers = [];
+        players[player].currentIndex = 0;
+        players[player].selected = false;
+        showGame(player, data);
+      });
+
+      socket.on('answer_result', (data) => {
+        logAdd(player, `${data.correct ? '✅' : '❌'} 答案: +${data.score} combo=${data.combo}`, data.correct ? 'in' : 'err');
+        players[player].answers.push(data);
+        showFeedback(player, data);
+        // 800ms后自动跳到下一题
+        setTimeout(() => {
+          players[player].selected = false;
+          players[player].currentIndex++;
+          renderQuestion(player);
+        }, 800);
+      });
+
+      socket.on('opponent_progress', (data) => {
+        logAdd(player, `👀 对手进度: 第${data.questionIndex + 1}题 ${data.status}`, 'out');
+        updateOppProgress(player, data.questionIndex);
+      });
+
+      socket.on('you_finished', (data) => {
+        logAdd(player, '🏁 ' + data.message, 'in');
+        showOppFinished(player);
+      });
+
+      socket.on('opponent_finished', (data) => {
+        logAdd(player, '🏁 ' + data.message, 'in');
+      });
+
+      socket.on('game_result', (data) => {
+        logAdd(player, '🎯 游戏结果: ' + (data.winner === 'draw' ? '平局' : data.winner === players[player].userId ? '赢了!' : '输了'), 'in');
+        showResult(player, data);
+      });
+
+      socket.on('opponent_left', (data) => {
+        logAdd(player, '🚪 ' + data.message, 'err');
+        if (document.getElementById(player + 'roomStatus')) {
+          document.getElementById(player + 'roomStatus').textContent = '⚠ ' + data.message;
+        }
+      });
+
+      socket.on('error_msg', (data) => {
+        logAdd(player, '❌ 错误: ' + data.message, 'err');
+        alert('服务器错误: ' + data.message);
+      });
+    }
+
+    function setStatus(player, s) {
+      document.getElementById(player + 'status').className = 'status ' + s;
+    }
+
+    function showRoom(player, roomCode, msg) {
+      document.getElementById(player + 'room').style.display = 'block';
+      document.getElementById(player + 'roomCode').textContent = roomCode;
+      document.getElementById(player + 'roomStatus').textContent = msg;
+      document.getElementById(player + 'game').style.display = 'none';
+      document.getElementById(player + 'result').style.display = 'none';
+    }
+
+    function showGame(player, data) {
+      document.getElementById(player + 'game').style.display = 'block';
+      document.getElementById(player + 'roomStatus').textContent = '⚔ 对战中...';
+      setStatus(player, 'playing');
+      // 初始化对手进度条
+      const dots = Array.from({length: data.totalQuestions}, (_, i) =>
+        `<span class="opp-dot" id="${player}oppdot${i}"></span>`
+      ).join('');
+      document.getElementById(player + 'oppDots').innerHTML = dots;
+      renderQuestion(player);
+    }
+
+    function renderQuestion(player) {
+      const p = players[player];
+      const q = p.questions[p.currentIndex];
+      if (!q) return;
+
+      let html = `<div class="question-card">
+        <div style="color:#64748b;font-size:12px;margin-bottom:8px">第 ${p.currentIndex + 1}/${p.questions.length} 题</div>
+        <div class="question-text">${q.text}</div>`;
+      q.options.forEach(opt => {
+        html += `<button class="option" id="${player}opt${opt.id}" onclick="selectOption('${player}','${opt.id}','${q.id}')" ${p.selected ? 'disabled' : ''}>${opt.id}. ${opt.text}</button>`;
+      });
+      html += '</div>';
+      document.getElementById(player + 'question').innerHTML = html;
+      document.getElementById(player + 'result').style.display = 'none';
+    }
+
+    function selectOption(player, optionId, questionId) {
+      const p = players[player];
+      if (p.selected) return;
+      p.selected = true;
+
+      document.getElementById(player + 'opt' + optionId).classList.add('selected');
+
+      const timeSpent = Math.round((Date.now() - (p._questionStart || Date.now())) / 1000);
+      if (p.socket) {
+        p.socket.emit('answer', { questionId, optionId, timeSpent: Math.min(timeSpent, 30), questionIndex: p.currentIndex });
+        logAdd(player, `📤 提交答案: 第${p.currentIndex + 1}题 ${optionId} (用时${timeSpent}s)`, 'out');
+      }
+      p._questionStart = Date.now();
+    }
+
+    function showFeedback(player, data) {
+      const p = players[player];
+      const q = p.questions[p.currentIndex];
+      if (!q) return;
+
+      // 高亮正确答案和用户选择
+      q.options.forEach(opt => {
+        const el = document.getElementById(player + 'opt' + opt.id);
+        if (!el) return;
+        if (opt.id === q.correctId) el.classList.add('correct');
+        // correctId 不在发来的题目里，但我们可以在 answer_result 后标记
+      });
+
+      // 高亮用户选择
+      const lastAns = p.answers[p.answers.length - 1];
+      // 从 question 找对错... 实际上 answer_result 已经告诉我们 correct 了
+      const fbHtml = `<div class="feedback ${data.correct ? 'feedback-correct' : 'feedback-wrong'}">
+        ${data.correct ? `✅ 正确 +${data.score}分` : '❌ 回答错误'} ${data.combo >= 2 ? `🔥 ${data.combo}连击!` : ''}
+      </div>`;
+      const qEl = document.getElementById(player + 'question');
+      if (qEl) qEl.innerHTML += fbHtml;
+    }
+
+    function updateOppProgress(player, qIndex) {
+      const dot = document.getElementById(player + 'oppdot' + qIndex);
+      if (dot) dot.classList.add('done');
+    }
+
+    function showOppFinished(player) {
+      const el = document.getElementById(player + 'roomStatus');
+      if (el) el.textContent = '✅ 你已完成，等待对手...';
+    }
+
+    function showResult(player, data) {
+      const isMe = (p) => p.userId === players[player].userId;
+      const me = data.players.find(isMe) || data.players[0];
+      const op = data.players.find(p => !isMe(p)) || data.players[1] || { nickname: '对手', score: 0, correctCount: 0 };
+
+      const won = data.winner === players[player].userId;
+      const draw = data.winner === 'draw';
+
+      let html = '<div class="result-card">';
+      html += `<div class="result-winner">${draw ? '🤝 平局!' : won ? '🎉 你赢了!' : '😔 你输了'}</div>`;
+      html += `<div class="result-scores">
+        <div class="result-player"><div class="result-name">我</div><div class="result-score">${me.score}</div><div class="result-correct">${me.correctCount}/${me.totalQuestions} 正确</div></div>
+        <div style="font-size:24px;color:#64748b;align-self:center">VS</div>
+        <div class="result-player"><div class="result-name">${op.nickname}</div><div class="result-score">${op.score}</div><div class="result-correct">${op.correctCount}/${op.totalQuestions} 正确</div></div>
+      </div>`;
+      html += '</div>';
+
+      document.getElementById(player + 'result').innerHTML = html;
+      document.getElementById(player + 'result').style.display = 'block';
+      document.getElementById(player + 'game').style.display = 'none';
+      setStatus(player, 'online');
+    }
+
+    // ==================== 玩家操作 ====================
+    function player1Connect() { const s = createSocket('p1'); if (s) players.p1._questionStart = Date.now(); }
+    function player2Connect() { const s = createSocket('p2'); if (s) players.p2._questionStart = Date.now(); }
+
+    function player1CreateRoom() {
+      const subj = document.getElementById('subjectSelect').value;
+      const diff = document.getElementById('difficultySelect').value;
+      players.p1.socket?.emit('create_room', { subject: subj, chapter: 1, difficulty: diff });
+      logAdd('p1', `📤 create_room: ${subj}/${diff}`, 'out');
+    }
+    function player2CreateRoom() {
+      const subj = document.getElementById('subjectSelect').value;
+      const diff = document.getElementById('difficultySelect').value;
+      players.p2.socket?.emit('create_room', { subject: subj, chapter: 1, difficulty: diff });
+      logAdd('p2', `📤 create_room: ${subj}/${diff}`, 'out');
+    }
+
+    function player1JoinRoom() {
+      const code = document.getElementById('p1joinCode').value.toUpperCase();
+      if (code.length !== 4) { alert('请输入4位房间码'); return; }
+      players.p1.socket?.emit('join_room', { roomCode: code });
+      logAdd('p1', `📤 join_room: ${code}`, 'out');
+    }
+    function player2JoinRoom() {
+      const code = document.getElementById('p2joinCode').value.toUpperCase();
+      if (code.length !== 4) { alert('请输入4位房间码'); return; }
+      players.p2.socket?.emit('join_room', { roomCode: code });
+      logAdd('p2', `📤 join_room: ${code}`, 'out');
+    }
+
+    function player1Leave() {
+      players.p1.socket?.emit('leave_room');
+      players.p1.socket?.disconnect();
+      resetPlayer('p1');
+    }
+    function player2Leave() {
+      players.p2.socket?.emit('leave_room');
+      players.p2.socket?.disconnect();
+      resetPlayer('p2');
+    }
+
+    function resetPlayer(player) {
+      const p = players[player];
+      p.socket = null;
+      p.roomCode = null;
+      p.questions = [];
+      p.answers = [];
+      p.currentIndex = 0;
+      p.selected = false;
+      document.getElementById(player + 'room').style.display = 'none';
+      document.getElementById(player + 'game').style.display = 'none';
+      document.getElementById(player + 'result').style.display = 'none';
+      document.getElementById(player + 'connect').disabled = false;
+      document.getElementById(player + 'create').disabled = true;
+      document.getElementById(player + 'join').disabled = true;
+      document.getElementById(player + 'leave').disabled = true;
+      setStatus(player, 'offline');
+    }
+
+    // ==================== 初始化 ====================
+    document.getElementById('p1connect').disabled = true;
+    document.getElementById('p2connect').disabled = true;
+
+    // 自动获取Token
+    window.addEventListener('DOMContentLoaded', () => {
+      fetchTokens();
+    });
+  </script>
+</body>
+</html>

@@ -1,15 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text } from '@tarojs/components';
 import Taro from '@tarojs/taro';
+import { getDailyChallenge } from '../../services/api';
+import { subjectLabel } from '../../utils/helpers';
 import './index.scss';
 
 const Activity: React.FC = () => {
   const [mounted, setMounted] = useState(false);
+  const [dailyInfo, setDailyInfo] = useState<{ today?: any; streak?: number } | null>(null);
 
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 100);
     return () => clearTimeout(t);
   }, []);
+
+  useEffect(() => {
+    getDailyChallenge()
+      .then((data) => setDailyInfo(data))
+      .catch(() => {});
+  }, []);
+
+  const todayCompleted = dailyInfo?.today?.completed;
+
+  const handleDailyChallenge = () => {
+    Taro.navigateTo({ url: '/pages/daily-challenge/index' });
+  };
 
   return (
     <View className='activity-page'>
@@ -46,33 +61,45 @@ const Activity: React.FC = () => {
             transition: 'all 0.6s cubic-bezier(0.23, 1, 0.32, 1) 0.15s',
           }}
         >
-          {/* 占位活动卡片 */}
-          <View className='activity-card activity-card--coming'>
+          {/* 每日挑战 — 可交互 */}
+          <View className='activity-card activity-card--daily' onClick={handleDailyChallenge}>
             <View className='activity-card__header'>
-              <View className='activity-card__tag'>
-                <Text className='activity-card__tag-text'>即将开启</Text>
+              <View className={`activity-card__tag ${todayCompleted ? 'activity-card__tag--done' : ''}`}>
+                <Text className='activity-card__tag-text'>
+                  {todayCompleted ? '今日已完成' : '每日挑战'}
+                </Text>
               </View>
-              <Text className='activity-card__date'>敬请期待</Text>
+              <Text className='activity-card__date'>
+                {dailyInfo?.streak ? `已连续 ${dailyInfo.streak} 天` : '今日可挑战'}
+              </Text>
             </View>
             <View className='activity-card__body'>
-              <Text className='activity-card__icon'>🏆</Text>
+              <Text className='activity-card__icon'>📅</Text>
               <View className='activity-card__info'>
-                <Text className='activity-card__name'>闯关达人挑战赛</Text>
+                <Text className='activity-card__name'>每日挑战</Text>
                 <Text className='activity-card__desc'>
-                  限定时间内完成指定题库挑战，排名赢取专属称号和积分奖励
+                  {todayCompleted
+                    ? `今日已完成，得分 ${dailyInfo?.today?.score || 0} 分`
+                    : `今日学科：${subjectLabel(dailyInfo?.today?.subject || '随机')}。10 道题，答对加分，连击翻倍！`
+                  }
                 </Text>
               </View>
             </View>
             <View className='activity-card__footer'>
               <View className='activity-card__badge'>
-                <Text>🎁 丰富奖励</Text>
+                <Text>📝 10 题</Text>
               </View>
               <View className='activity-card__badge'>
-                <Text>👑 专属称号</Text>
+                <Text>🔥 连击加成</Text>
               </View>
               <View className='activity-card__badge'>
-                <Text>📊 排行榜</Text>
+                <Text>🎁 每日奖励</Text>
               </View>
+            </View>
+            <View className='activity-card__action'>
+              <Text className='activity-card__action-text'>
+                {todayCompleted ? '查看详情' : '开始挑战 →'}
+              </Text>
             </View>
           </View>
 

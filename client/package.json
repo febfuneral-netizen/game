@@ -18,7 +18,8 @@
     "@tarojs/taro": "4.2.0",
     "@tarojs/webpack5-runner": "^4.2.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "weapp.socket.io": "^2.2.1"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.29.7",

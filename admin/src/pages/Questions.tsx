@@ -338,7 +338,7 @@ const Questions: React.FC = () => {
                       style={{ width: 100 }}
                       value={filterChapter}
                       onChange={(v) => { setFilterChapter(v); setPage(1); }}
-                      options={Array.from({ length: 5 }, (_, i) => ({
+                      options={Array.from({ length: 10 }, (_, i) => ({
                         value: i + 1,
                         label: `第${i + 1}章`,
                       }))}

@@ -1,31 +1,56 @@
-// OptionButton 样式已改为 inline style 驱动
-// 保留基础 class 以便兼容
+// OptionButton — 圆角矩形选项按钮
 .option-btn {
   display: flex;
   align-items: center;
-  gap: 16px;
-  border-radius: 16px;
-  cursor: pointer;
+  width: 100%;
+  border-radius: 20px;
+  padding: 18px 22px;
+  background: #f0f1f7;
+  border: 2px solid transparent;
+  transition: transform 0.15s ease, background 0.3s ease, border-color 0.3s ease;
   position: relative;
   overflow: hidden;
-  transition: transform 0.2s ease;
+  cursor: pointer;
 
+  &__text {
+    font-size: 28px;
+    font-weight: 600;
+    color: #1e1b4b;
+    line-height: 1.5;
+  }
+
+  // 默认态：浅灰圆角矩形（匹配参考图）
   &--default {
     &:active {
-      transform: scale(0.97);
+      transform: scale(0.98);
+      background: #e8e9f0;
     }
   }
+
+  // 选中态：主题渐变色 + 微边框
   &--selected {
+    border-color: rgba(124, 92, 255, 0.35);
     animation: selectedPulse 0.4s ease;
   }
+
+  // 正确态：绿色渐变
   &--correct {
     animation: correctGlow 0.5s ease;
   }
+
+  // 错误态：红色渐变
   &--wrong {
     animation: shake 0.4s ease;
   }
+
+  // 禁用态：答题揭晓后其他选项
   &--disabled {
+    background: #f7f7f9;
     pointer-events: none;
+
+    .option-btn__text {
+      color: #9ca3af;
+    }
   }
 }
 
@@ -48,3 +73,4 @@
   70% { transform: translateX(4px); }
   90% { transform: translateX(-2px); }
 }
+
